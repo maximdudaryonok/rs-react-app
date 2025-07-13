@@ -7,8 +7,10 @@ export async function getData(
   searchValue?: string,
   page: number = 1
 ): Promise<SearchResponse> {
-  const searchPath = searchValue ? `&name=${encodeURIComponent(searchValue)}` : '';
+  const searchPath = searchValue
+    ? `&name=${encodeURIComponent(searchValue)}`
+    : '';
   const url = `${BASE_URL}?page=${page}${searchPath}`;
   const res = await fetch(url, DEFAULT_PARAMS);
-  return (await res.json()) as SearchResponse;
+  return await res.json();
 }

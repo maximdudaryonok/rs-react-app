@@ -58,7 +58,7 @@ class SearchPage extends Component<unknown, SearchPageState> {
   }
 
   componentDidUpdate(
-    _prevProps:unknown,
+    _prevProps: unknown,
     prevState: Readonly<SearchPageState>
   ): void {
     if (prevState.search !== this.state.search) {

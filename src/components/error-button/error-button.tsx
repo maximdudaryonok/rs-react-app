@@ -6,7 +6,7 @@ interface ErrorButtonState {
 }
 
 class ErrorButton extends Component<unknown, ErrorButtonState> {
-  constructor(props: ErrorButtonProps) {
+  constructor(props: unknown) {
     super(props);
     this.state = {
       error: null,
