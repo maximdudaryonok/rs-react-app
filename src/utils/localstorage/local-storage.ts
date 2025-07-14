@@ -3,7 +3,7 @@ const localeSorageKey = 'rickandmorty25';
 class LocaleStorage {
   public key = '';
   constructor(key: string = localeSorageKey) {
-    this.key = key
+    this.key = key;
   }
 
   getLocaleStorage(): string {
