@@ -1,8 +1,4 @@
-import  {
-  Component,
-  type ReactNode,
-  type ErrorInfo,
-} from 'react';
+import { Component, type ReactNode, type ErrorInfo } from 'react';
 import styles from './error-boundary.module.css';
 
 interface Props {
