@@ -1,12 +1,12 @@
 import { Component } from 'react';
-import style from './search-page.module.css';
+import style from './SearchPage.module.css';
 import { getData } from '../../utils/api/search-request.ts';
 import type { HeroResponse } from '../../models';
-import { Loader } from '../../components/loader/loader.tsx';
-import { Search } from '../../components/search/search.tsx';
-import { ErrorButton } from '../../components/error-button/error-button.tsx';
+import { Loader } from '../../components/loader/Loader.tsx';
+import { Search } from '../../components/search/Search.tsx';
+import { ErrorButton } from '../../components/error-button/ErrorButton.tsx';
 import { LocaleStorage } from '../../utils/localstorage/local-storage.ts';
-import { List } from '../../components/list/list.tsx';
+import { List } from '../../components/list/List.tsx';
 
 interface SearchPageState {
   search: string;
@@ -34,12 +34,14 @@ class SearchPage extends Component<unknown, SearchPageState> {
 
     try {
       const data = await getData(search);
+
       if (data?.results) {
         this.setState({
           heroes: data?.results || [],
           loading: false,
         });
       }
+
       if (data?.error) {
         throw new Error(data.error);
       }
@@ -68,6 +70,7 @@ class SearchPage extends Component<unknown, SearchPageState> {
 
   setInitialState = () => {
     const value = this.storage.getLocaleStorage();
+
     if (value) {
       this.setState({ search: value, loading: true });
     } else {

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 
-vi.mock('./loader.module.css', () => ({
+vi.mock('./Loader.module.css', () => ({
   default: {
     loader: 'loader',
     loader_img: 'loader_img',
@@ -13,7 +13,7 @@ vi.mock('../../assets/loader.png', () => ({
   default: 'mocked-loader.png',
 }));
 
-import { Loader } from './loader';
+import { Loader } from './Loader.tsx';
 
 describe('Loader component', () => {
   it('renders loader wrapper with correct class', () => {

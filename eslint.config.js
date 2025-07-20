@@ -35,6 +35,34 @@ export default tseslint.config(
         "react-compiler/react-compiler": "error",
         ...react.configs.recommended.rules,
         ...react.configs["jsx-runtime"].rules,
+        'padding-line-between-statements': [
+          2,
+          {
+            blankLine: 'always',
+            prev: '*',
+            next: ['return', 'break'],
+          },
+          {
+            blankLine: 'always',
+            prev: ['const', 'let'],
+            next: '*',
+          },
+          {
+            blankLine: 'any',
+            prev: ['const', 'let'],
+            next: ['const', 'let'],
+          },
+          {
+            blankLine: 'always',
+            prev: '*',
+            next: 'if',
+          },
+          {
+            blankLine: 'always',
+            prev: 'if',
+            next: '*',
+          },
+        ],
       },
       settings: {
         react: {

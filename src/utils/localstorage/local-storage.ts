@@ -8,9 +8,11 @@ class LocaleStorage {
 
   getLocaleStorage(): string {
     const lsValue = localStorage.getItem(this.key);
+
     if (lsValue) {
       return JSON.parse(lsValue);
     }
+
     return '';
   }
 

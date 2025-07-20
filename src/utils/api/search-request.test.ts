@@ -106,6 +106,7 @@ describe('getData()', () => {
 
   it('propagates fetch errors', async () => {
     const networkError = new Error('Network failure');
+
     global.fetch.mockRejectedValueOnce(networkError);
 
     await expect(() => getData('Rick')).rejects.toThrow('Network failure');

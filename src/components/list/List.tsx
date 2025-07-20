@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import style from './list.module.css';
+import style from './List.module.css';
 import type { HeroResponse } from '../../models';
 
 interface ListProps {

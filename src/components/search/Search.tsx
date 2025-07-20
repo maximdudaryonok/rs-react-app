@@ -1,5 +1,5 @@
 import React, { Component, createRef } from 'react';
-import style from './search.module.scss';
+import style from './Search.module.scss';
 import { LocaleStorage } from '../../utils/localstorage/local-storage.ts';
 
 interface SearchProps {
@@ -28,6 +28,7 @@ class Search extends Component<SearchProps, SearchState> {
 
   setInitialState = () => {
     const value = this.storage.getLocaleStorage();
+
     if (value) {
       this.setState({ searchValue: value });
     } else {
@@ -37,6 +38,7 @@ class Search extends Component<SearchProps, SearchState> {
 
   handleChangeSearchValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim();
+
     this.setState({ searchValue: value });
   };
 

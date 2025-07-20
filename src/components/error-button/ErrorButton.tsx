@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import style from './error-button.module.scss';
+import style from './ErrorButton.module.scss';
 
 interface ErrorButtonState {
   error: Error | null;

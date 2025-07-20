@@ -2,13 +2,13 @@ import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
-vi.mock('./error-button.module.scss', () => ({
+vi.mock('./ErrorButton.module.scss', () => ({
   default: {
     error_btn: 'error_btn',
   },
 }));
 
-import { ErrorButton } from './error-button';
+import { ErrorButton } from './ErrorButton.tsx';
 
 class TestBoundary extends React.Component<
   { children: React.ReactNode },
@@ -51,6 +51,7 @@ describe('ErrorButton', () => {
     );
 
     const button = screen.getByRole('button', { name: 'Error' });
+
     expect(button).toBeInTheDocument();
 
     fireEvent.click(button);

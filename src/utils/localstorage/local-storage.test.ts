@@ -12,24 +12,29 @@ describe('LocaleStorage', () => {
 
   it('uses the default key when none is provided', () => {
     const ls = new LocaleStorage();
+
     expect(ls.key).toBe(DEFAULT_KEY);
   });
 
   it('accepts and uses a custom key', () => {
     const customKey = 'myCustomKey';
     const ls = new LocaleStorage(customKey);
+
     expect(ls.key).toBe(customKey);
   });
 
   it('getLocaleStorage returns empty string if nothing is stored', () => {
     const ls = new LocaleStorage();
+
     expect(ls.getLocaleStorage()).toBe('');
   });
 
   it('setLocaleStorage stores the JSON-stringified value under the instance key', () => {
     const ls = new LocaleStorage();
+
     ls.setLocaleStorage('hello world');
     const raw = localStorage.getItem(DEFAULT_KEY);
+
     expect(raw).toBe(JSON.stringify('hello world'));
   });
 
@@ -45,6 +50,7 @@ describe('LocaleStorage', () => {
   it('supports async retrieval with waitFor', async () => {
     const ls = new LocaleStorage();
     const asyncValue = 'async test';
+
     localStorage.setItem(ls.key, JSON.stringify(asyncValue));
 
     await waitFor(() => {

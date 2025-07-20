@@ -1,8 +1,9 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { Search } from './Search.tsx';
 
-vi.mock('./search.module.scss', () => ({
+vi.mock('./Search.module.scss', () => ({
   default: {
     search_block: 'search_block',
     label: 'label',
@@ -15,14 +16,13 @@ vi.mock('./search.module.scss', () => ({
 
 const getLocaleMock = vi.fn();
 const setLocaleMock = vi.fn();
+
 vi.mock('../../utils/localstorage/local-storage.ts', () => ({
   LocaleStorage: vi.fn().mockImplementation(() => ({
     getLocaleStorage: getLocaleMock,
     setLocaleStorage: setLocaleMock,
   })),
 }));
-
-import { Search } from './search';
 
 describe('Search component', () => {
   let onSubmitMock: () => void;
@@ -43,6 +43,7 @@ describe('Search component', () => {
     );
 
     const input = screen.getByPlaceholderText('search...');
+
     expect(getLocaleMock).toHaveBeenCalled();
     expect(input.value).toBe('initial-value');
   });
@@ -55,11 +56,13 @@ describe('Search component', () => {
     );
 
     const input = screen.getByPlaceholderText('search...');
+
     fireEvent.change(input, { target: { value: '  Rick  ' } });
 
     expect(input.value).toBe('Rick');
 
     const clearBtn = screen.getByRole('button', { name: '×' });
+
     expect(clearBtn).toHaveClass('clear_btn', 'clear_btn_visible');
   });
 
@@ -70,9 +73,11 @@ describe('Search component', () => {
     );
 
     const input = screen.getByPlaceholderText('search...');
+
     fireEvent.change(input, { target: { value: 'Morty' } });
 
     const searchBtn = screen.getByRole('button', { name: 'Search' });
+
     fireEvent.click(searchBtn);
 
     expect(setLocaleMock).toHaveBeenCalledWith('Morty');
@@ -86,9 +91,11 @@ describe('Search component', () => {
     );
 
     const input = screen.getByPlaceholderText('search...');
+
     fireEvent.change(input, { target: { value: 'Beth' } });
 
     const clearBtn = screen.getByRole('button', { name: '×' });
+
     fireEvent.click(clearBtn);
 
     expect(input.value).toBe('');

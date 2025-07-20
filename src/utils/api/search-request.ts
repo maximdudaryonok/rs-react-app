@@ -12,5 +12,6 @@ export async function getData(
     : '';
   const url = `${BASE_URL}?page=${page}${searchPath}`;
   const res = await fetch(url, DEFAULT_PARAMS);
+
   return await res.json();
 }

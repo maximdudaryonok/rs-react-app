@@ -1,16 +1,16 @@
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { SearchPage } from './search-page.tsx';
+import { SearchPage } from './SearchPage.tsx';
 import { getData } from '../../utils/api/search-request.ts';
 
-vi.mock('../../components/loader/loader.tsx', () => ({
+vi.mock('../../components/loader/Loader.tsx', () => ({
   Loader: () => <div data-testid="loader">Loading…</div>,
 }));
-vi.mock('../../components/error-button/error-button.tsx', () => ({
+vi.mock('../../components/error-button/ErrorButton.tsx', () => ({
   ErrorButton: () => <button data-testid="error-button">Error</button>,
 }));
-vi.mock('../../components/search/search.tsx', () => ({
+vi.mock('../../components/search/Search.tsx', () => ({
   Search: ({
     onSubmitSearch,
     onResetSearch,
@@ -31,7 +31,7 @@ vi.mock('../../components/search/search.tsx', () => ({
     </div>
   ),
 }));
-vi.mock('../../components/list/list.tsx', () => ({
+vi.mock('../../components/list/List.tsx', () => ({
   List: ({ heroes }: { heroes: Array<{ id: number; name: string }> }) => (
     <ul data-testid="list">
       {heroes.map((h, i) => (
@@ -78,6 +78,7 @@ describe('<SearchPage />', () => {
     });
 
     const list = screen.getByTestId('list');
+
     expect(list.children).toHaveLength(2);
     expect(list).toHaveTextContent('Rick Sanchez');
     expect(list).toHaveTextContent('Morty Smith');
@@ -135,6 +136,7 @@ describe('<SearchPage />', () => {
     });
 
     const onlyMorty = screen.getAllByRole('listitem');
+
     expect(onlyMorty).toHaveLength(1);
     expect(onlyMorty[0]).toHaveTextContent('Morty Smith');
 
@@ -145,6 +147,7 @@ describe('<SearchPage />', () => {
     });
 
     const allHeroes = screen.getAllByRole('listitem');
+
     expect(allHeroes).toHaveLength(2);
   });
 

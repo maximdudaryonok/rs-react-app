@@ -1,7 +1,8 @@
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 
-vi.mock('./list.module.css', () => ({
+vi.mock('./List.module.css', () => ({
   default: {
     search_list: 'search_list',
     card: 'card',
@@ -10,7 +11,7 @@ vi.mock('./list.module.css', () => ({
   },
 }));
 
-import { List } from './list';
+import { List } from './List.tsx';
 
 const mockHeroes = [
   {
