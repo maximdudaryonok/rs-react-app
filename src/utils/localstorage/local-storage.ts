@@ -1,24 +1,20 @@
 const localeSorageKey = 'rickandmorty25';
 
-class LocaleStorage {
-  public key = '';
-  constructor(key: string = localeSorageKey) {
-    this.key = key;
+const getLocaleStorage = (key: string = localeSorageKey): string => {
+  const lsValue = localStorage.getItem(key);
+
+  if (lsValue) {
+    return JSON.parse(lsValue);
   }
 
-  getLocaleStorage(): string {
-    const lsValue = localStorage.getItem(this.key);
+  return '';
+};
 
-    if (lsValue) {
-      return JSON.parse(lsValue);
-    }
+const setLocaleStorage = (
+  value: string,
+  key: string = localeSorageKey
+): void => {
+  localStorage.setItem(key, JSON.stringify(value));
+};
 
-    return '';
-  }
-
-  setLocaleStorage(value: string): void {
-    localStorage.setItem(this.key, JSON.stringify(value));
-  }
-}
-
-export { LocaleStorage };
+export { getLocaleStorage, setLocaleStorage };

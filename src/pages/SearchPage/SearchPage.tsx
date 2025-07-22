@@ -1,45 +1,63 @@
-import { Component } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import style from './SearchPage.module.css';
-import { getData } from '../../utils/api/search-request.ts';
-import type { HeroResponse } from '../../models';
-import { Loader } from '../../components/Loader/Loader.tsx';
-import { Search } from '../../components/Search/Search.tsx';
-import { ErrorButton } from '../../components/ErrorButton/ErrorButton.tsx';
-import { LocaleStorage } from '../../utils/localstorage/local-storage.ts';
 import { List } from '../../components/List/List.tsx';
+import { Pagination } from '../../components/Pagination/index.ts';
+import { Outlet, useSearchParams } from 'react-router-dom';
+import type { HeroResponse } from '../../models';
+import React from 'react';
+import { useSearchQuery } from '../../features/search/hooks/useSearchQuery.tsx';
+import { SearchRequest } from '../../utils/api/search-request.ts';
+import { Search } from '../../features/search';
+import { Loader } from '../../components/Loader/Loader.tsx';
 
 interface SearchPageState {
-  search: string;
   heroes: Array<HeroResponse>;
   error: Error | null;
   loading: boolean;
+  totalPages: number | null;
 }
 
-class SearchPage extends Component<unknown, SearchPageState> {
-  storage: LocaleStorage;
-  constructor(props: unknown) {
-    super(props);
-    this.storage = new LocaleStorage();
-    this.state = {
-      search: '',
-      heroes: [],
-      error: null,
-      loading: true,
-    };
-  }
+const SearchPage: () => JSX.Element = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  getData = async () => {
-    this.setState({ loading: true, error: null });
-    const { search } = this.state;
+  const initialState: SearchPageState = {
+    heroes: [],
+    error: null,
+    loading: true,
+    totalPages: null,
+  };
+
+  const [state, setState] = useState<SearchPageState>(initialState);
+  const [currentPage, setCurrentPage] = useState<number>(
+    Number(searchParams.get('page') ?? 1)
+  );
+  const [searchValue, setSearchValue] = useSearchQuery();
+
+  useEffect(() => {
+    setSearchParams({
+      query: searchValue.toString(),
+      page: currentPage.toString(),
+    });
+  }, [searchValue, currentPage, setSearchParams]);
+
+  const getData = async (search?: string, page?: number) => {
+    setState((prevState) => ({ ...prevState, loading: true, error: null }));
 
     try {
-      const data = await getData(search);
+      const data = await SearchRequest(search, page);
+
+      const totalPages = data?.info?.pages;
+
+      if (totalPages) {
+        setState((prevState) => ({ ...prevState, totalPages }));
+      }
 
       if (data?.results) {
-        this.setState({
+        setState((prevState) => ({
+          ...prevState,
           heroes: data?.results || [],
           loading: false,
-        });
+        }));
       }
 
       if (data?.error) {
@@ -47,72 +65,73 @@ class SearchPage extends Component<unknown, SearchPageState> {
       }
     } catch (error) {
       if (error instanceof Error) {
-        this.setState({
-          heroes: [],
-          loading: false,
-        });
+        setState((prevState) => ({ ...prevState, heroes: [], loading: false }));
       }
     }
   };
 
-  componentDidMount(): void {
-    this.setInitialState();
-  }
+  useEffect(() => {
+    getData(searchValue.toString(), currentPage);
+  }, [searchValue, currentPage]);
 
-  componentDidUpdate(
-    _prevProps: unknown,
-    prevState: Readonly<SearchPageState>
-  ): void {
-    if (prevState.search !== this.state.search) {
-      this.getData();
-    }
-  }
-
-  setInitialState = () => {
-    const value = this.storage.getLocaleStorage();
-
-    if (value) {
-      this.setState({ search: value, loading: true });
-    } else {
-      this.setState({ search: '', loading: true });
-      this.getData();
-    }
+  const onSubmitSearch = (value: string) => {
+    setSearchValue(value);
+    setCurrentPage(1);
+    setSearchParams({ query: value, page: '1' });
   };
 
-  onSubmitSearch = (value: string) => {
-    this.setState({ search: value });
+  const onResetSearch = () => {
+    setSearchValue('');
+    setCurrentPage(1);
+    setSearchParams({});
   };
 
-  onResetSearch = () => {
-    this.setState({ search: '' });
+  const { heroes, loading } = state;
+
+  const onChangePage = (page: number) => {
+    setCurrentPage(page);
+    setSearchParams({ query: searchValue.toString(), page: page.toString() });
   };
 
-  render() {
-    const { heroes, loading } = this.state;
+  return (
+    <div>
+      <div className={style.controls_block}>
+        <Search
+          onSubmitSearch={onSubmitSearch}
+          onResetSearch={onResetSearch}
+          initialValue={searchValue}
+        />
+      </div>
 
-    return (
-      <div className={style.page}>
-        <div className={style.controls_block}>
-          <Search
-            onSubmitSearch={this.onSubmitSearch}
-            onResetSearch={this.onResetSearch}
-          />
-          <ErrorButton />
-        </div>
-
-        {loading ? (
-          <Loader />
-        ) : (
-          <>
-            {heroes.length > 0 && <List heroes={this.state.heroes} />}
+      {loading ? (
+        <Loader />
+      ) : (
+        <>
+          <div className={style.wrapper}>
+            {heroes.length > 0 && (
+              <>
+                <List heroes={heroes} />
+              </>
+            )}
             {heroes.length === 0 && (
               <h2 className={style.title}>No results found</h2>
             )}
+            <Outlet />
+          </div>
+          <>
+            {state.totalPages && heroes.length > 0 && (
+              <Pagination
+                totalPage={state.totalPages}
+                currentPage={currentPage}
+                siblings={1}
+                onChangePage={onChangePage}
+              />
+            )}
           </>
-        )}
-      </div>
-    );
-  }
-}
+        </>
+      )}
+    </div>
+  );
+};
 
 export { SearchPage };

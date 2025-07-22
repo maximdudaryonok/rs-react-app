@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { SearchPage } from './SearchPage.tsx';
-import { getData } from '../../utils/api/search-request.ts';
+import { SearchRequest } from 'shared/lib/api/SearchRequest';
 
 vi.mock('../../components/loader/Loader.tsx', () => ({
   Loader: () => <div data-testid="loader">Loading…</div>,
@@ -42,7 +42,7 @@ vi.mock('../../components/list/List.tsx', () => ({
 }));
 
 vi.mock('../../utils/api/search-request.ts', () => ({
-  getData: vi.fn(),
+  SearchRequest: vi.fn(),
 }));
 vi.mock('../../utils/localstorage/local-storage.ts', () => ({
   LocaleStorage: vi.fn().mockImplementation(() => ({
@@ -51,7 +51,7 @@ vi.mock('../../utils/localstorage/local-storage.ts', () => ({
   })),
 }));
 
-const mockGetData = getData;
+const mockGetData = SearchRequest;
 
 describe('<SearchPage />', () => {
   const fakeHeroes = [
