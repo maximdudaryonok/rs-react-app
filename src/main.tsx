@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './app/App.tsx';
-import { ErrorBoundary } from './components/error-boundary/ErrorBoundary.tsx';
+import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary.tsx';
 
 const rootElement = document.getElementById('root');
 

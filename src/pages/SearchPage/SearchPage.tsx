@@ -2,11 +2,11 @@ import { Component } from 'react';
 import style from './SearchPage.module.css';
 import { getData } from '../../utils/api/search-request.ts';
 import type { HeroResponse } from '../../models';
-import { Loader } from '../../components/loader/Loader.tsx';
-import { Search } from '../../components/search/Search.tsx';
-import { ErrorButton } from '../../components/error-button/ErrorButton.tsx';
+import { Loader } from '../../components/Loader/Loader.tsx';
+import { Search } from '../../components/Search/Search.tsx';
+import { ErrorButton } from '../../components/ErrorButton/ErrorButton.tsx';
 import { LocaleStorage } from '../../utils/localstorage/local-storage.ts';
-import { List } from '../../components/list/List.tsx';
+import { List } from '../../components/List/List.tsx';
 
 interface SearchPageState {
   search: string;

@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { SearchPage } from '../pages/search/SearchPage.tsx';
+import { SearchPage } from '../pages/SearchPage/SearchPage.tsx';
 import './styles/variables/global.scss';
 import './app.css';
 
