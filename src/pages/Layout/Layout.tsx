@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import type { JSX } from 'react';
 import style from './Layout.module.scss';
 import { Outlet } from 'react-router-dom';
 

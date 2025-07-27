@@ -1,15 +1,37 @@
-import { JSX } from 'react';
-import { SearchPage, Layout, Hero, NotFound } from 'pages';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import { Paths } from 'models/routerTypes.ts';
-import { ErrorElement } from '../../../components/errorBoundary';
-import { SearchRequest } from '../../../utils/api/search-request.ts';
+import {
+  createBrowserRouter,
+  isRouteErrorResponse,
+  RouterProvider,
+  useRouteError,
+} from 'react-router-dom';
+import { Paths } from 'models/routerTypes';
+import { SearchPage, Layout } from 'pages';
+import { ErrorElement } from '../../../components/ErrorBoundary/ui/ErrorElement.tsx';
+import { SearchRequest } from '../../../utils/api/search-request';
+
+function ErrorBoundaryWrapper() {
+  const error = useRouteError();
+
+  let errorMessage: string;
+
+  if (isRouteErrorResponse(error)) {
+    errorMessage = `${error.status} ${error.statusText}`;
+  } else if (error instanceof Error) {
+    errorMessage = error.message;
+  } else if (typeof error === 'string') {
+    errorMessage = error;
+  } else {
+    errorMessage = 'Unknown error';
+  }
+
+  return <ErrorElement errorInfo={errorMessage} />;
+}
 
 const router = createBrowserRouter([
   {
     path: Paths.base,
     element: <Layout />,
-    errorElement: <ErrorElement />,
+    errorElement: <ErrorBoundaryWrapper />,
     children: [
       {
         path: Paths.base,
@@ -25,21 +47,34 @@ const router = createBrowserRouter([
         children: [
           {
             path: `${Paths.hero}:id`,
-            element: <Hero />,
-            errorElement: <ErrorElement />,
+            lazy: async () => {
+              const { Hero } = await import('pages/index.ts');
+
+              return {
+                Component: Hero,
+                errorElement: <ErrorBoundaryWrapper />,
+              };
+            },
           },
         ],
       },
       {
         path: Paths.notFound,
-        element: <NotFound />,
+        lazy: async () => {
+          const { NotFound } = await import('pages/index.ts');
+
+          return {
+            Component: NotFound,
+            errorElement: <ErrorBoundaryWrapper />,
+          };
+        },
       },
     ],
   },
 ]);
 
-const RouteProvider: () => JSX.Element = () => {
+export const RouteProvider = () => {
   return <RouterProvider router={router} />;
 };
 
-export { RouteProvider };
+export { router };

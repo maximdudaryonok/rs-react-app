@@ -1,114 +1,101 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { waitFor } from '@testing-library/react';
-import { getData } from '../api/search-request.ts';
-import type { SearchResponse } from '../../models';
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { SearchRequest, getSingleHero } from './search-request';
+import { BASE_URL, params } from 'shared/constants';
 
-const BASE_URL = 'https://rickandmortyapi.com/api/character';
-const DEFAULT_PARAMS = { method: 'GET' };
+type FetchMock = ReturnType<typeof vi.fn>;
 
-describe('getData()', () => {
+describe('SearchRequest', () => {
+  let fetchMock: FetchMock;
+
   beforeEach(() => {
-    vi.restoreAllMocks();
-    global.fetch = vi.fn();
+    // stub global.fetch before each test
+    fetchMock = vi.fn();
+    Object.defineProperty(globalThis, 'fetch', {
+      writable: true,
+      value: fetchMock,
+    });
   });
 
   afterEach(() => {
     vi.resetAllMocks();
   });
 
-  it('fetches default page when no args passed', async () => {
-    const fakeResponse: SearchResponse = {
-      info: { count: 0, pages: 0, next: null, prev: null },
-      results: [],
-    };
+  it('calls fetch with default page when no searchValue and returns parsed JSON', async () => {
+    const mockData = { results: [], info: { pages: 0 } };
 
-    global.fetch.mockResolvedValueOnce({
-      json: () => Promise.resolve(fakeResponse),
+    fetchMock.mockResolvedValue({
+      json: vi.fn().mockResolvedValue(mockData),
     });
 
-    const data = await getData();
+    const result = await SearchRequest();
+    const expectedUrl = `${BASE_URL}?page=1`;
 
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        `${BASE_URL}?page=1`,
-        DEFAULT_PARAMS
-      );
-      expect(data).toEqual(fakeResponse);
+    expect(fetchMock).toHaveBeenCalledWith(expectedUrl, params);
+    expect(result).toEqual(mockData);
+  });
+
+  it('includes page override and returns parsed JSON', async () => {
+    const mockData = {
+      results: [{ id: '10', name: 'Test' }],
+      info: { pages: 1 },
+    };
+
+    fetchMock.mockResolvedValue({
+      json: vi.fn().mockResolvedValue(mockData),
+    });
+
+    const result = await SearchRequest('', 5);
+    const expectedUrl = `${BASE_URL}?page=5`;
+
+    expect(fetchMock).toHaveBeenCalledWith(expectedUrl, params);
+    expect(result).toEqual(mockData);
+  });
+
+  it('appends name param when searchValue is provided', async () => {
+    const mockData = {
+      results: [{ id: '1', name: 'Rick' }],
+      info: { pages: 1 },
+    };
+
+    fetchMock.mockResolvedValue({
+      json: vi.fn().mockResolvedValue(mockData),
+    });
+
+    const result = await SearchRequest('Morty', 2);
+    const expectedUrl = `${BASE_URL}?page=2&name=Morty`;
+
+    expect(fetchMock).toHaveBeenCalledWith(expectedUrl, params);
+    expect(result).toEqual(mockData);
+  });
+});
+
+describe('getSingleHero', () => {
+  let fetchMock: FetchMock;
+
+  beforeEach(() => {
+    fetchMock = vi.fn();
+    Object.defineProperty(globalThis, 'fetch', {
+      writable: true,
+      value: fetchMock,
     });
   });
 
-  it('fetches a specified page number', async () => {
-    const fakeResponse = {
-      info: { count: 10, pages: 2, next: 'url?page=2', prev: null },
-      results: [{ id: 1, name: 'Rick Sanchez' }],
-    };
-
-    global.fetch.mockResolvedValueOnce({
-      json: () => Promise.resolve(fakeResponse),
-    });
-
-    const page = 3;
-    const data = await getData(undefined, page);
-
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        `${BASE_URL}?page=${page}`,
-        DEFAULT_PARAMS
-      );
-      expect(data).toEqual(fakeResponse);
-    });
+  afterEach(() => {
+    vi.resetAllMocks();
   });
 
-  it('includes a simple searchValue', async () => {
-    const fakeResponse = {
-      info: { count: 5, pages: 1, next: null, prev: null },
-      results: [{ id: 2, name: 'Morty Smith' }],
-    };
+  it('fetches a single hero by id and returns parsed JSON', async () => {
+    const heroId = '42';
+    const mockHero = { id: '42', name: 'Zoidberg', status: 'unknown' };
 
-    global.fetch.mockResolvedValueOnce({
-      json: () => Promise.resolve(fakeResponse),
+    fetchMock.mockResolvedValue({
+      json: vi.fn().mockResolvedValue(mockHero),
     });
 
-    const name = 'Summer';
-    const data = await getData(name);
+    const result = await getSingleHero(heroId);
+    const expectedUrl = `${BASE_URL}/${heroId}`;
 
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        `${BASE_URL}?page=1&name=Summer`,
-        DEFAULT_PARAMS
-      );
-      expect(data).toEqual(fakeResponse);
-    });
-  });
-
-  it('URL-encodes special characters in searchValue', async () => {
-    const rawSearch = 'Mr. Meeseeks & Mr. Poopybutthole';
-    const encoded = encodeURIComponent(rawSearch);
-    const fakeResponse = {
-      info: { count: 1, pages: 1, next: null, prev: null },
-      results: [{ id: 3, name: rawSearch }],
-    };
-
-    global.fetch.mockResolvedValueOnce({
-      json: () => Promise.resolve(fakeResponse),
-    });
-
-    const data = await getData(rawSearch, 2);
-
-    await waitFor(() => {
-      expect(global.fetch).toHaveBeenCalledWith(
-        `${BASE_URL}?page=2&name=${encoded}`,
-        DEFAULT_PARAMS
-      );
-      expect(data).toEqual(fakeResponse);
-    });
-  });
-
-  it('propagates fetch errors', async () => {
-    const networkError = new Error('Network failure');
-
-    global.fetch.mockRejectedValueOnce(networkError);
-
-    await expect(() => getData('Rick')).rejects.toThrow('Network failure');
+    expect(fetchMock).toHaveBeenCalledWith(expectedUrl, params);
+    expect(result).toEqual(mockHero);
   });
 });

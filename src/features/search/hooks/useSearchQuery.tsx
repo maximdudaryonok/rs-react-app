@@ -1,20 +1,9 @@
-import { useState } from 'react';
-import {
-  getLocaleStorage,
-  setLocaleStorage,
-} from '../../../utils/localstorage/local-storage.ts';
+import { useLocalStorage } from '../../../utils/localstorage/local-storage.ts';
+
+const STORAGE_KEY = 'rickandmorty25';
 
 const useSearchQuery = (): [string, (value: string) => void] => {
-  const [searchValue, setSearchValue] = useState<string>(
-    () => getLocaleStorage() ?? ''
-  );
-
-  const updateSearchValue = (value: string) => {
-    setSearchValue(value);
-    setLocaleStorage(value);
-  };
-
-  return [searchValue, updateSearchValue];
+  return useLocalStorage<string>(STORAGE_KEY, '');
 };
 
 export { useSearchQuery };

@@ -8,6 +8,7 @@ describe('test return array with pagination items', () => {
     const page = 1;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -17,6 +18,7 @@ describe('test return array with pagination items', () => {
     const page = 6;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
     expect(result).toBeTypeOf('object');
   });
@@ -27,6 +29,7 @@ describe('test return array with pagination items', () => {
     const page = 1;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -36,6 +39,7 @@ describe('test return array with pagination items', () => {
     const page = 1;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -45,6 +49,7 @@ describe('test return array with pagination items', () => {
     const page = 10;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -54,6 +59,7 @@ describe('test return array with pagination items', () => {
     const page = 6;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -63,6 +69,7 @@ describe('test return array with pagination items', () => {
     const page = 2;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -72,6 +79,7 @@ describe('test return array with pagination items', () => {
     const page = 9;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -81,6 +89,7 @@ describe('test return array with pagination items', () => {
     const page = 3;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -90,6 +99,7 @@ describe('test return array with pagination items', () => {
     const page = 5;
     const siblings = 4;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -99,6 +109,7 @@ describe('test return array with pagination items', () => {
     const page = 3;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 
@@ -108,6 +119,7 @@ describe('test return array with pagination items', () => {
     const page = 1;
     const siblings = 1;
     const result = getPaginationArray(totalPage, page, siblings);
+
     expect(result).toEqual(arr);
   });
 });

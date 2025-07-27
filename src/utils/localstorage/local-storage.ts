@@ -1,20 +1,47 @@
-const localeSorageKey = 'rickandmorty25';
+import { useState, useEffect, useCallback } from 'react';
 
-const getLocaleStorage = (key: string = localeSorageKey): string => {
-  const lsValue = localStorage.getItem(key);
+function useLocalStorage<T>(
+  key: string,
+  initialValue: T
+): [T, (value: T) => void] {
+  const [storedValue, setStoredValue] = useState<T>(() => {
+    try {
+      const item = window.localStorage.getItem(key);
 
-  if (lsValue) {
-    return JSON.parse(lsValue);
-  }
+      return item !== null ? (JSON.parse(item) as T) : initialValue;
+    } catch {
+      return initialValue;
+    }
+  });
 
-  return '';
-};
+  const setValue = useCallback(
+    (value: T) => {
+      try {
+        const valueToStore =
+          value instanceof Function ? (value)(storedValue) : value;
 
-const setLocaleStorage = (
-  value: string,
-  key: string = localeSorageKey
-): void => {
-  localStorage.setItem(key, JSON.stringify(value));
-};
+        setStoredValue(valueToStore);
+        window.localStorage.setItem(key, JSON.stringify(valueToStore));
+      } catch (err) {
+        console.warn(err);
+      }
+    },
+    [key, storedValue]
+  );
 
-export { getLocaleStorage, setLocaleStorage };
+  useEffect(() => {
+    try {
+      const item = window.localStorage.getItem(key);
+
+      if (item !== null) {
+        setStoredValue(JSON.parse(item) as T);
+      }
+    } catch (err) {
+      console.warn(err);
+    }
+  }, [key]);
+
+  return [storedValue, setValue];
+}
+
+export { useLocalStorage };

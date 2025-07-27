@@ -1,14 +1,14 @@
-import { FC } from 'react';
+import type { JSX } from 'react';
 import style from './ErrorBoundary.module.css';
 
-interface ErrorElementProps {
-  errorInfo?: string | null;
+export interface ErrorElementProps {
+  errorInfo: string;
 }
 
-const ErrorElement: FC<ErrorElementProps> = ({ errorInfo }) => {
+export const ErrorElement = ({ errorInfo }: ErrorElementProps): JSX.Element => {
   return (
     <div className={style.error_block}>
-      <h1 className={style.title}>Somethig wrong is going...</h1>
+      <h1 className={style.title}>Something wrong is going...</h1>
       {errorInfo && <p className={style.title}>{errorInfo}</p>}
       <button className={style.reload_btn} onClick={() => location.reload()}>
         Reload
@@ -16,5 +16,3 @@ const ErrorElement: FC<ErrorElementProps> = ({ errorInfo }) => {
     </div>
   );
 };
-
-export { ErrorElement };

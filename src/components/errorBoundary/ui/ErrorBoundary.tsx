@@ -1,12 +1,13 @@
-import { Component, ErrorInfo, ReactNode } from 'react';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
 import { ErrorElement } from './ErrorElement';
 
 interface ErrorBoundaryProps {
   children?: ReactNode;
 }
+
 interface ErrorBoundaryState {
   hasError: boolean;
-  errorInfo: null | string;
+  errorInfo: string;
 }
 
 class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
@@ -14,27 +15,21 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
     super(props);
     this.state = {
       hasError: false,
-      errorInfo: null,
+      errorInfo: '',
     };
   }
 
-  static getDerivedStateFromError(error: Error) {
+  static getDerivedStateFromError(error: Error): Partial<ErrorBoundaryState> {
     return { hasError: true, errorInfo: error.message };
   }
 
-  componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
-    this.setState({
-      hasError: false,
-      errorInfo: error.message,
-    });
-    console.error('ErrorBoundary caught an error', error, errorInfo);
+  componentDidCatch(error: Error, info: ErrorInfo) {
+    console.error('Caught by ErrorBoundary:', error, info);
   }
 
   render() {
-    const { hasError, errorInfo } = this.state;
-
-    if (hasError) {
-      return <ErrorElement errorInfo={errorInfo} />;
+    if (this.state.hasError) {
+      return <ErrorElement errorInfo={this.state.errorInfo} />;
     }
 
     return this.props.children;

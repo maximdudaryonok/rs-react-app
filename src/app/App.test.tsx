@@ -1,18 +1,16 @@
 import React from 'react';
-import { describe, it, expect, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
-import App from './App.tsx';
+import { describe, it, expect, vi } from 'vitest';
 
-vi.mock('../pages/search/SearchPage.tsx', () => ({
-  SearchPage: () => <div data-testid="search-page">SearchPage</div>,
+vi.mock('./providers/routerProvider/routeProvider.tsx', () => ({
+  RouteProvider: () => <div>RouteProvider</div>,
 }));
 
-describe('App component', () => {
-  it('renders the SearchPage', () => {
-    render(<App />);
-    const searchPage = screen.getByTestId('search-page');
+import { App } from './App';
 
-    expect(searchPage).toBeInTheDocument();
-    expect(searchPage).toHaveTextContent('SearchPage');
+describe('App Component', () => {
+  it('renders the RouteProvider', () => {
+    render(<App />);
+    expect(screen.getByText('RouteProvider')).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import { JSX, useEffect, useState } from 'react';
+import { type JSX, useEffect, useState } from 'react';
 import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
 import { List } from '../../components/List/List';
 import { Pagination } from '../../components/Pagination';

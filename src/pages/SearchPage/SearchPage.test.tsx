@@ -1,164 +1,150 @@
 import React from 'react';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { SearchPage } from './SearchPage.tsx';
-import { SearchRequest } from 'shared/lib/api/SearchRequest';
+import '@testing-library/jest-dom';
+import { MemoryRouter, useLocation } from 'react-router-dom';
 
-vi.mock('../../components/loader/Loader.tsx', () => ({
-  Loader: () => <div data-testid="loader">Loading…</div>,
+vi.mock('./SearchPage.module.scss', () => ({
+  __esModule: true,
+  default: {
+    controls_block: 'controls_block',
+    wrapper: 'wrapper',
+    title: 'title',
+  },
 }));
-vi.mock('../../components/error-button/ErrorButton.tsx', () => ({
-  ErrorButton: () => <button data-testid="error-button">Error</button>,
+
+vi.mock('../../components/Loader/Loader', () => ({
+  Loader: () => <div data-testid="loader">LOADING...</div>,
 }));
-vi.mock('../../components/search/Search.tsx', () => ({
-  Search: ({
-    onSubmitSearch,
-    onResetSearch,
+vi.mock('../../components/List/List', () => ({
+  List: ({ heroes }: { heroes: { name: string }[] }) => (
+    <div data-testid="list">{heroes.map((h) => h.name).join(',')}</div>
+  ),
+}));
+vi.mock('../../components/Pagination', () => ({
+  Pagination: ({
+    totalPage,
+    currentPage,
+    onChangePage,
   }: {
-    onSubmitSearch: (v: string) => void;
-    onResetSearch: () => void;
+    totalPage: number;
+    currentPage: number;
+    onChangePage: (p: number) => void;
   }) => (
-    <div>
+    <div data-testid="pagination">
+      pages: {currentPage}/{totalPage}
       <button
-        data-testid="search-submit"
-        onClick={() => onSubmitSearch('Morty')}
+        data-testid="btn-next"
+        onClick={() => onChangePage(currentPage + 1)}
       >
-        Submit Morty
-      </button>
-      <button data-testid="search-reset" onClick={onResetSearch}>
-        Reset
+        next
       </button>
     </div>
   ),
 }));
-vi.mock('../../components/list/List.tsx', () => ({
-  List: ({ heroes }: { heroes: Array<{ id: number; name: string }> }) => (
-    <ul data-testid="list">
-      {heroes.map((h, i) => (
-        <li key={i}>{h.name}</li>
-      ))}
-    </ul>
+
+vi.mock('../../features/search', () => ({
+  Search: ({
+    onSubmitSearch,
+    onResetSearch,
+    initialValue,
+  }: {
+    onSubmitSearch: (q: string) => void;
+    onResetSearch: () => void;
+    initialValue: string;
+  }) => (
+    <div data-testid="search">
+      <span>init:{initialValue}</span>
+      <button
+        data-testid="btn-submit"
+        onClick={() => onSubmitSearch('new-query')}
+      >
+        submit
+      </button>
+      <button data-testid="btn-reset" onClick={onResetSearch}>
+        reset
+      </button>
+    </div>
   ),
 }));
 
-vi.mock('../../utils/api/search-request.ts', () => ({
+import { SearchRequest } from '../../utils/api/search-request';
+vi.mock('../../utils/api/search-request', () => ({
   SearchRequest: vi.fn(),
 }));
-vi.mock('../../utils/localstorage/local-storage.ts', () => ({
-  LocaleStorage: vi.fn().mockImplementation(() => ({
-    getLocaleStorage: vi.fn().mockReturnValue(''),
-    setLocaleStorage: vi.fn(),
-  })),
-}));
 
-const mockGetData = SearchRequest;
+import { SearchPage } from './SearchPage';
+const LocationDisplay = () => {
+  const { search } = useLocation();
 
-describe('<SearchPage />', () => {
-  const fakeHeroes = [
-    { id: 1, name: 'Rick Sanchez' },
-    { id: 2, name: 'Morty Smith' },
-  ];
+  return <div data-testid="location">{search}</div>;
+};
 
+describe('SearchPage integration with router', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockGetData.mockResolvedValue({ results: [], error: null });
   });
 
-  it('renders loader on initial mount', () => {
-    render(<SearchPage />);
-    expect(screen.getByTestId('loader')).toBeInTheDocument();
+  it('injects initial “query” into Search and updates URL on submit & reset', async () => {
+    (SearchRequest as vi.Mock).mockResolvedValue({
+      results: [],
+      info: { pages: 1 },
+      error: null,
+    });
+
+    render(
+      <MemoryRouter initialEntries={['/?query=foo&page=3']}>
+        <SearchPage />
+        <LocationDisplay />
+      </MemoryRouter>
+    );
+
+    expect(screen.getByTestId('search')).toHaveTextContent('init:foo');
+
+    expect(screen.getByTestId('location')).toHaveTextContent(
+      '?query=foo&page=3'
+    );
+
+    fireEvent.click(screen.getByTestId('btn-submit'));
+    await waitFor(() => {
+      const loc = screen.getByTestId('location').textContent || '';
+
+      expect(new URLSearchParams(loc).toString()).toBe(
+        'query=new-query&page=1'
+      );
+    });
+
+    fireEvent.click(screen.getByTestId('btn-reset'));
+    await waitFor(() =>
+      expect(screen.getByTestId('location')).toHaveTextContent('')
+    );
   });
 
-  it('renders hero list when getData returns results', async () => {
-    mockGetData.mockResolvedValueOnce({ results: fakeHeroes, error: null });
-
-    render(<SearchPage />);
-    await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
+  it('advances the page when pagination “next” is clicked', async () => {
+    (SearchRequest as vi.Mock).mockResolvedValue({
+      results: [{ name: 'X' }],
+      info: { pages: 3 },
+      error: null,
     });
 
-    const list = screen.getByTestId('list');
+    render(
+      <MemoryRouter initialEntries={['/']}>
+        <SearchPage />
+        <LocationDisplay />
+      </MemoryRouter>
+    );
 
-    expect(list.children).toHaveLength(2);
-    expect(list).toHaveTextContent('Rick Sanchez');
-    expect(list).toHaveTextContent('Morty Smith');
-  });
+    await waitFor(() =>
+      expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
+    );
 
-  it('renders "No results found" when results are empty', async () => {
-    mockGetData.mockResolvedValueOnce({ results: [], error: null });
-
-    render(<SearchPage />);
+    fireEvent.click(screen.getByTestId('btn-next'));
     await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
+      const loc = screen.getByTestId('location').textContent || '';
+      const params = new URLSearchParams(loc);
+
+      expect(params.get('page')).toBe('2');
+      expect(params.get('query')).toBe('');
     });
-
-    expect(screen.getByText(/No results found/i)).toBeInTheDocument();
-  });
-
-  it('re-fetches on search submit', async () => {
-    mockGetData
-      .mockResolvedValueOnce({ results: [], error: null })
-      .mockResolvedValueOnce({ results: fakeHeroes, error: null });
-
-    render(<SearchPage />);
-    await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
-    });
-
-    fireEvent.click(screen.getByTestId('search-submit'));
-    expect(screen.getByTestId('loader')).toBeInTheDocument();
-
-    await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
-    });
-
-    expect(mockGetData).toHaveBeenCalledWith('Morty');
-    expect(screen.getByTestId('list')).toHaveTextContent('Morty Smith');
-  });
-
-  it('resets search and shows full list again', async () => {
-    mockGetData
-      .mockResolvedValueOnce({ results: fakeHeroes, error: null })
-      .mockResolvedValueOnce({ results: [fakeHeroes[1]], error: null })
-      .mockResolvedValueOnce({ results: fakeHeroes, error: null });
-
-    render(<SearchPage />);
-    await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
-    });
-
-    expect(screen.getAllByRole('listitem')).toHaveLength(2);
-    fireEvent.click(screen.getByTestId('search-submit'));
-
-    expect(screen.getByTestId('loader')).toBeInTheDocument();
-    await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
-    });
-
-    const onlyMorty = screen.getAllByRole('listitem');
-
-    expect(onlyMorty).toHaveLength(1);
-    expect(onlyMorty[0]).toHaveTextContent('Morty Smith');
-
-    fireEvent.click(screen.getByTestId('search-reset'));
-    expect(screen.getByTestId('loader')).toBeInTheDocument();
-    await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
-    });
-
-    const allHeroes = screen.getAllByRole('listitem');
-
-    expect(allHeroes).toHaveLength(2);
-  });
-
-  it('handles API error and shows empty state', async () => {
-    mockGetData.mockRejectedValueOnce(new Error('API fail'));
-
-    render(<SearchPage />);
-    await waitFor(() => {
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument();
-    });
-
-    expect(screen.getByText(/No results found/i)).toBeInTheDocument();
   });
 });
