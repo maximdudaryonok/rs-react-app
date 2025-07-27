@@ -1,10 +1,16 @@
 import { type JSX, useEffect, useState } from 'react';
-import { Outlet, useSearchParams, useNavigate } from 'react-router-dom';
+import {
+  Outlet,
+  useSearchParams,
+  useNavigate,
+  NavLink,
+} from 'react-router-dom';
 import { List } from '../../components/List/List';
 import { Pagination } from '../../components/Pagination';
 import { Loader } from '../../components/Loader/Loader';
 import { Search } from '../../features/search';
 import { SearchRequest } from '../../utils/api/search-request';
+import { Paths } from '../../models/routerTypes';
 import style from './SearchPage.module.scss';
 import type { HeroResponse } from '../../models';
 
@@ -17,7 +23,6 @@ interface SearchPageState {
 
 const SearchPage: () => JSX.Element = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-
   useNavigate();
 
   const query = searchParams.get('query') || '';
@@ -65,6 +70,17 @@ const SearchPage: () => JSX.Element = () => {
 
   return (
     <div>
+      <nav className={style.navmain}>
+        <NavLink
+          to={Paths.about}
+          className={({ isActive }) =>
+            isActive ? style.activeLink : style.link
+          }
+        >
+          About
+        </NavLink>
+      </nav>
+
       <div className={style.controls_block}>
         <Search
           onSubmitSearch={onSubmitSearch}

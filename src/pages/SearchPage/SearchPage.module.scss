@@ -30,3 +30,25 @@
   gap: 20px;
   padding: 2rem;
 }
+
+.navmain {
+  display: flex;
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+  justify-content: center;
+}
+
+.link {
+  color: #007acc;
+  text-decoration: none;
+  font-size: 1rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.activeLink {
+  font-weight: 600;
+  color: #005f99;
+}

@@ -1,4 +1,4 @@
-import { useLocalStorage } from '../../../utils/localstorage/local-storage.ts';
+import { useLocalStorage } from '../../../utils/localstorage/useLocalStorage.ts';
 
 const STORAGE_KEY = 'rickandmorty25';
 

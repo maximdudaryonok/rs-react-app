@@ -1,86 +1,53 @@
 import React from 'react';
-import { render } from '@testing-library/react';
-import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { MemoryRouter } from 'react-router-dom';
-import userEvent from '@testing-library/user-event';
+import { render, screen, act } from '@testing-library/react';
+import { MemoryRouter, Routes, Route } from 'react-router-dom';
+import { vi, describe, beforeEach, afterEach, it, expect } from 'vitest';
+
 import { Hero } from './Hero';
-import { http, HttpResponse } from 'msw';
-import { setupServer } from 'msw/node';
+import { getSingleHero } from '../../utils/api/search-request';
 
-const heroes = [
-  {
-    id: 1,
+vi.mock('../../utils/api/search-request', () => ({
+  getSingleHero: vi.fn(),
+}));
+
+describe('Hero component', () => {
+  const heroData: HeroModel = {
+    id: '123',
     name: 'Rick',
-    status: 'Alive',
-    species: 'Human',
-    type: '',
+    image: 'https://example.com/rick.png',
     gender: 'Male',
-    origin: { name: 'Earth' },
-    location: { name: 'Mars' },
-    image: 'string',
-    episode: ['Episode 1', 'Episode 2'],
-    url: 'string',
-    created: '2021-01-01T00:00:00.000Z',
-  },
-  {
-    id: 2,
-    name: 'Morty',
-    status: 'Alive',
     species: 'Human',
-    type: '',
-    gender: 'Male',
-    origin: { name: 'Earth' },
-    location: { name: 'Mars' },
-    image: 'string',
-    episode: ['Episode 1', 'Episode 2'],
-    url: 'string',
-    created: '2021-01-01T00:00:00.000Z',
-  },
-];
+    status: 'Alive',
+    location: { name: 'Earth' },
+  };
 
-export const BASE_URL: string = 'https://rickandmortyapi.com/api/character';
-export const BASE_URL_HERO: string =
-  'https://rickandmortyapi.com/api/character/1';
-
-const handlers = [
-  http.get(`${BASE_URL}`, async () => {
-    return HttpResponse.json(heroes[0]);
-  }),
-  http.get(`${BASE_URL_HERO}`, async () => {
-    return HttpResponse.json(heroes[0]);
-  }),
-];
-
-const server = setupServer(...handlers);
-
-describe('Component Hero', () => {
-  beforeAll(() => {
-    server.listen();
+  beforeEach(() => {
+    vi.useFakeTimers();
+    (getSingleHero as vi.Mock).mockResolvedValue(heroData);
   });
 
-  afterAll(() => {
-    server.close();
+  afterEach(() => {
+    vi.useRealTimers();
+    vi.resetAllMocks();
   });
 
-  it('testing test', async () => {
-    const { getByText, findByText, getByTestId } = render(
-      <MemoryRouter initialEntries={['/heroes/1']}>
-        <Hero />
+
+  it('renders error message when API throws', async () => {
+    (getSingleHero as vi.Mock).mockRejectedValue(new Error('Fetch failed'));
+    const route = `/heroes/${heroData.id}`;
+
+    render(
+      <MemoryRouter initialEntries={[route]}>
+        <Routes>
+          <Route path="/heroes/:id" element={<Hero />} />
+        </Routes>
       </MemoryRouter>
     );
 
-    const loading = getByText(/loading.../i);
+    expect(screen.getByText(/loading/i)).toBeInTheDocument();
 
-    expect(loading).toBeInTheDocument();
-    const name = await findByText(heroes[0].name);
+    await act(() => vi.advanceTimersByTime(1000));
 
-    expect(name).toBeInTheDocument();
-    expect(loading).not.toBeInTheDocument();
-
-    const closeBtn = getByTestId(/close/i);
-
-    expect(closeBtn).toBeInTheDocument();
-
-    await userEvent.click(closeBtn);
+    expect(screen.getByText(/failed to load hero/i)).toBeInTheDocument();
   });
 });

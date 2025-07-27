@@ -69,6 +69,17 @@ const router = createBrowserRouter([
           };
         },
       },
+      {
+        path: Paths.about,
+        lazy: async () => {
+          const { About } = await import('pages/index.ts');
+
+          return {
+            Component: About,
+            errorElement: <ErrorBoundaryWrapper />,
+          };
+        },
+      },
     ],
   },
 ]);
