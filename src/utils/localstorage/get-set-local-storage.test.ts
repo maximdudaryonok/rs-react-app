@@ -1,6 +1,6 @@
 import { describe, it, expect, beforeEach, vi } from 'vitest';
 import { waitFor } from '@testing-library/react';
-import { LocaleStorage } from './local-storage.ts';
+import { LocaleStorage } from './get-set-local-storage.ts';
 
 const DEFAULT_KEY = 'rickandmorty25';
 

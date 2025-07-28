@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { waitFor } from '@testing-library/react';
-import { getData } from '../api/search-request.ts';
+import { getData } from './get-data.ts';
 import type { SearchResponse } from '../../models';
 
 const BASE_URL = 'https://rickandmortyapi.com/api/character';

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 import { SearchPage } from './SearchPage.tsx';
-import { getData } from '../../utils/api/search-request.ts';
+import { getData } from '../../utils/api/get-data.ts';
 
 vi.mock('../../components/loader/Loader.tsx', () => ({
   Loader: () => <div data-testid="loader">Loading…</div>,

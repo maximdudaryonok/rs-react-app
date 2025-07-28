@@ -1,11 +1,11 @@
 import { Component } from 'react';
-import style from './SearchPage.module.css';
-import { getData } from '../../utils/api/search-request.ts';
+import style from './SearchPage.module.scss';
+import { getData } from '../../utils/api/get-data.ts';
 import type { HeroResponse } from '../../models';
 import { Loader } from '../../components/Loader/Loader.tsx';
 import { Search } from '../../components/Search/Search.tsx';
 import { ErrorButton } from '../../components/ErrorButton/ErrorButton.tsx';
-import { LocaleStorage } from '../../utils/localstorage/local-storage.ts';
+import { LocaleStorage } from '../../utils/localstorage/get-set-local-storage.ts';
 import { List } from '../../components/List/List.tsx';
 
 interface SearchPageState {

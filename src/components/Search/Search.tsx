@@ -1,6 +1,6 @@
 import React, { Component, createRef } from 'react';
 import style from './Search.module.scss';
-import { LocaleStorage } from '../../utils/localstorage/local-storage.ts';
+import { LocaleStorage } from '../../utils/localstorage/get-set-local-storage.ts';
 
 interface SearchProps {
   onSubmitSearch: (value: string) => void;
