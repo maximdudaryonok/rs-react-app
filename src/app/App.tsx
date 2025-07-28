@@ -1,12 +1,10 @@
-import { Component } from 'react';
-import { SearchPage } from '../pages/search/SearchPage.tsx';
 import './styles/variables/global.scss';
 import './app.css';
+import type { JSX } from 'react';
+import { RouteProvider } from './providers/routerProvider/routeProvider.tsx';
 
-class App extends Component {
-  render() {
-    return <SearchPage />;
-  }
-}
+const App: () => JSX.Element = () => {
+  return <RouteProvider />;
+};
 
-export default App;
+export { App };

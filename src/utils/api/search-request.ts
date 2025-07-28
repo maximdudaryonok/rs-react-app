@@ -1,17 +1,27 @@
-import type { FetchParams, SearchResponse } from '../../models/';
+import { BASE_URL, params } from 'shared/constants';
+import type {
+  HeroResponse,
+  SearchResponse,
+} from '../../models/search-params.ts';
 
-const BASE_URL = 'https://rickandmortyapi.com/api/character';
-const DEFAULT_PARAMS: FetchParams = { method: 'GET' };
-
-export async function getData(
+const SearchRequest = async (
   searchValue?: string,
   page: number = 1
-): Promise<SearchResponse> {
-  const searchPath = searchValue
-    ? `&name=${encodeURIComponent(searchValue)}`
-    : '';
+): Promise<SearchResponse | undefined> => {
+  const searchPath = searchValue ? `&name=${searchValue}` : '';
   const url = `${BASE_URL}?page=${page}${searchPath}`;
-  const res = await fetch(url, DEFAULT_PARAMS);
+  const res = await fetch(url, params);
+  const data = (await res.json()) as SearchResponse;
 
-  return await res.json();
-}
+  return data;
+};
+
+const getSingleHero = async (id: string): Promise<HeroResponse | undefined> => {
+  const url = `${BASE_URL}/${id}`;
+  const res = await fetch(url, params);
+  const data = (await res.json()) as HeroResponse;
+
+  return data;
+};
+
+export { SearchRequest, getSingleHero };

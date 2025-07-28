@@ -1,0 +1,51 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`About Component > matches the snapshot 1`] = `
+<div>
+  <div
+    class="_container_0c8a68"
+    data-testid="about-page"
+  >
+    <h1
+      class="_title_0c8a68"
+    >
+      Rick And Morty
+    </h1>
+    <h3
+      class="_small_0c8a68"
+    >
+      by Maxim Dudaryonok
+    </h3>
+    <nav
+      class="_navbar_0c8a68"
+    >
+      <a
+        aria-current="page"
+        class="_activeLink_0c8a68"
+        data-discover="true"
+        href="/"
+      >
+        Home
+      </a>
+    </nav>
+    <p
+      class="_text_0c8a68"
+    >
+      Built with React, React Router, and TypeScript.
+    </p>
+    <p
+      class="_text_0c8a68"
+    >
+      <a
+        class="_link_0c8a68"
+        href="https://rs.school/courses/reactjs"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        RS School
+      </a>
+      .
+    </p>
+  </div>
+</div>
+`;

@@ -4,3 +4,4 @@ export {
   type FetchParams,
   type SearchResponse,
 } from './search-params.ts';
+export type { Paths } from './routerTypes.ts';
