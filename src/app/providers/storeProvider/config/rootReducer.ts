@@ -1,5 +1,5 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { StateSchema } from './StateSchema';
+import type { StateSchema } from './StateSchema';
 import { heroesApi } from 'shared/api';
 import { favoriteReducer } from 'features/controlFavoriteMovies/slices/favoriteSlice';
 

@@ -11,7 +11,7 @@ describe('StoreProvider component', () => {
         <StoreProvider>
           <div data-testid="test-child">Test Child</div>
         </StoreProvider>
-      </Provider>,
+      </Provider>
     );
 
     const childElement = screen.getByTestId('test-child');

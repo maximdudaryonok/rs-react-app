@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import { BASE_URL } from 'shared/constants';
-import { HeroResponse, SearchResponse } from 'models/search-params.ts';
+import type { HeroResponse, SearchResponse } from 'models/index.ts';
 
 export interface GetHeroesSearchParams {
   searchValue?: string;
@@ -12,7 +12,8 @@ export const heroesApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
   endpoints: (builder) => ({
     getAllHeroes: builder.query<SearchResponse, GetHeroesSearchParams>({
-      query: ({ searchValue = '', currentPage }) => `?page=${currentPage}${searchValue ? `&name=${searchValue}` : ''}`,
+      query: ({ searchValue = '', currentPage }) =>
+        `?page=${currentPage}${searchValue ? `&name=${searchValue}` : ''}`,
     }),
     getHero: builder.query<HeroResponse, string>({
       query: (id) => `/${id}`,

@@ -1,70 +1,57 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { HeroResponse } from 'models/index';
-import { Paths } from 'models/routerTypes';
 import style from './Hero.module.scss';
-import { useEffect, useState } from 'react';
-import { getSingleHero } from '../../utils/api/get-data.ts';
+import { Paths } from 'models/routerTypes.ts';
+import { JSX, useContext, useEffect, useState } from 'react';
+import { ThemeContext } from 'app/store/Themecontext';
+import { useGetHeroQuery } from 'shared/api';
 
-const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const Hero = () => {
+const Hero: () => JSX.Element = () => {
+  const { isDarkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
   const locationPath = useLocation();
+  const parse = locationPath.pathname.split('/');
+  const id = parse[parse.length - 1];
+
   const [hero, setHero] = useState<HeroResponse>();
-  const [loading, setLoading] = useState(true);
-
-  const getData = async (id: string) => {
-    setLoading(true);
-    try {
-      const [data] = await Promise.all([getSingleHero(id), sleep(1000)]);
-
-      setHero(data);
-    } catch {
-      setHero(undefined);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { data, isLoading } = useGetHeroQuery(id);
 
   useEffect(() => {
-    const parts = locationPath.pathname.split('/');
-    const id = parts[parts.length - 1];
-
-    getData(id);
-  }, [locationPath]);
+    if (data) {
+      setHero(data);
+    }
+  }, [locationPath, data]);
 
   const handleCloseClick = () => {
     navigate(Paths.base + locationPath.search);
   };
 
-  if (loading) {
-    return (
-      <div className={style.wrapper}>
-        <button className={style.close_btn} onClick={handleCloseClick}>
-          &times;
-        </button>
-        <div>Loading...</div>
-      </div>
-    );
-  }
-
   if (!hero) {
     return (
-      <div className={style.wrapper}>
+      <div
+        className={
+          isDarkMode ? `${style.wrapper} ${style.wrapper_dark}` : style.wrapper
+        }
+      >
         <button className={style.close_btn} onClick={handleCloseClick}>
           &times;
         </button>
-        <div>Failed to load hero.</div>
+        {isLoading && <div>Loading...</div>}
       </div>
     );
   }
 
-  const { name, image, gender, species, status, location: loc } = hero;
+  const { gender, species, status, location } = hero;
+  const { name: locationName } = location;
 
   return (
     <>
-      <div className={style.overlay} onClick={handleCloseClick} />
-      <div className={style.wrapper} data-testid="hero">
+      <div
+        className={
+          isDarkMode ? `${style.wrapper} ${style.wrapper_dark}` : style.wrapper
+        }
+        data-testid="hero"
+      >
         <button
           data-testid="close"
           className={style.close_btn}
@@ -72,31 +59,37 @@ const Hero = () => {
         >
           &times;
         </button>
-
-        <div>
-          <img src={image} className={style.hero_img} alt={name} />
-        </div>
-        <h3 className={style.hero_desc}>{name}</h3>
-
-        {loc?.name && (
-          <p className={style.hero_info}>
-            <b>Location:</b> {loc.name}
-          </p>
-        )}
-        {gender && (
-          <p className={style.hero_info}>
-            <b>Gender:</b> {gender}
-          </p>
-        )}
-        {species && (
-          <p className={style.hero_info}>
-            <b>Species:</b> {species}
-          </p>
-        )}
-        {status && (
-          <p className={style.hero_info}>
-            <b>Status:</b> {status}
-          </p>
+        {hero && (
+          <>
+            <div>
+              <img
+                src={hero?.image}
+                className={style.hero_img}
+                alt={hero?.name}
+              />
+            </div>
+            <h3 className={style.hero_desc}>{hero?.name}</h3>
+            {locationName && (
+              <p className={style.hero_info}>
+                <b>Location:</b> {locationName}
+              </p>
+            )}
+            {gender && (
+              <p className={style.hero_info}>
+                <b>Gender:</b> {gender}
+              </p>
+            )}
+            {species && (
+              <p className={style.hero_info}>
+                <b>Species:</b> {species}
+              </p>
+            )}
+            {status && (
+              <p className={style.hero_info}>
+                <b>Status:</b> {status}
+              </p>
+            )}
+          </>
         )}
       </div>
     </>

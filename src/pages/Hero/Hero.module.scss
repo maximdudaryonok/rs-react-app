@@ -24,6 +24,12 @@
   background-color: var(--bg-color);
 }
 
+.wrapper_dark {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-color);
+  color: var(--border-color);
+}
+
 .close_btn {
   margin-left: auto;
   background: transparent;
