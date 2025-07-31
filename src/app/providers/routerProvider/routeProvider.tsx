@@ -7,7 +7,7 @@ import {
 import { Paths } from 'models/routerTypes';
 import { SearchPage, Layout } from 'pages';
 import { ErrorElement } from '../../../components/ErrorBoundary/ui/ErrorElement.tsx';
-import { SearchRequest } from '../../../utils/api/search-request';
+import { GetData } from '../../../utils/api/get-data.ts';
 
 function ErrorBoundaryWrapper() {
   const error = useRouteError();
@@ -40,7 +40,7 @@ const router = createBrowserRouter([
           const url = new URL(request.url);
           const query = url.searchParams.get('query') ?? '';
           const page = parseInt(url.searchParams.get('page') ?? '1', 10);
-          const data = await SearchRequest(query, page);
+          const data = await GetData(query, page);
 
           return { data, query, page };
         },

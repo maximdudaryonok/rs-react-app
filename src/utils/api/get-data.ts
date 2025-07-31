@@ -4,7 +4,7 @@ import type {
   SearchResponse,
 } from '../../models/search-params.ts';
 
-const SearchRequest = async (
+const GetData = async (
   searchValue?: string,
   page: number = 1
 ): Promise<SearchResponse | undefined> => {
@@ -24,4 +24,4 @@ const getSingleHero = async (id: string): Promise<HeroResponse | undefined> => {
   return data;
 };
 
-export { SearchRequest, getSingleHero };
+export { GetData, getSingleHero };

@@ -1,8 +1,8 @@
 import React from 'react';
 import style from './List.module.scss';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { Paths } from '../../models/routerTypes';
-import type { HeroResponse } from '../../models';
+import { Paths } from '../../../models/routerTypes.ts';
+import type { HeroResponse } from '../../../models';
 
 interface ListProps {
   heroes: HeroResponse[];

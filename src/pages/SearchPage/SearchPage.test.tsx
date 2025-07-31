@@ -13,10 +13,10 @@ vi.mock('./SearchPage.module.scss', () => ({
   },
 }));
 
-vi.mock('../../components/Loader/Loader', () => ({
+vi.mock('../../components/Loader', () => ({
   Loader: () => <div data-testid="loader">LOADING...</div>,
 }));
-vi.mock('../../components/List/List', () => ({
+vi.mock('../../components/List', () => ({
   List: ({ heroes }: { heroes: { name: string }[] }) => (
     <div data-testid="list">{heroes.map((h) => h.name).join(',')}</div>
   ),
@@ -43,7 +43,7 @@ vi.mock('../../components/Pagination', () => ({
   ),
 }));
 
-vi.mock('../../features/search', () => ({
+vi.mock('../../features/Search', () => ({
   Search: ({
     onSubmitSearch,
     onResetSearch,
@@ -68,9 +68,9 @@ vi.mock('../../features/search', () => ({
   ),
 }));
 
-import { SearchRequest } from '../../utils/api/search-request';
-vi.mock('../../utils/api/search-request', () => ({
-  SearchRequest: vi.fn(),
+import { GetData } from '../../utils/api/get-data.ts';
+vi.mock('../../utils/api/get-data.ts', () => ({
+  GetData: vi.fn(),
 }));
 
 import { SearchPage } from './SearchPage';
@@ -86,7 +86,7 @@ describe('SearchPage integration with router', () => {
   });
 
   it('injects initial “query” into Search and updates URL on submit & reset', async () => {
-    (SearchRequest as vi.Mock).mockResolvedValue({
+    (GetData as vi.Mock).mockResolvedValue({
       results: [],
       info: { pages: 1 },
       error: null,
@@ -121,7 +121,7 @@ describe('SearchPage integration with router', () => {
   });
 
   it('advances the page when pagination “next” is clicked', async () => {
-    (SearchRequest as vi.Mock).mockResolvedValue({
+    (GetData as vi.Mock).mockResolvedValue({
       results: [{ name: 'X' }],
       info: { pages: 3 },
       error: null,

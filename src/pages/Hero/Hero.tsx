@@ -3,7 +3,7 @@ import type { HeroResponse } from 'models/index';
 import { Paths } from 'models/routerTypes';
 import style from './Hero.module.scss';
 import { useEffect, useState } from 'react';
-import { getSingleHero } from '../../utils/api/search-request';
+import { getSingleHero } from '../../utils/api/get-data.ts';
 
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
 

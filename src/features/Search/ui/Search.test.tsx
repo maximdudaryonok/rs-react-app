@@ -8,8 +8,8 @@ const onSubmitSearch = vi.fn();
 const onResetSearch = vi.fn();
 const initialValue = 'Super component';
 
-describe('search component', () => {
-  it('render search component', () => {
+describe('Search component', () => {
+  it('render Search component', () => {
     render(
       <Search
         initialValue={initialValue}
@@ -20,7 +20,7 @@ describe('search component', () => {
     expect(screen.getByText(/search/i)).toBeInTheDocument();
   });
 
-  it('render search component with initial value', () => {
+  it('render Search component with initial value', () => {
     render(
       <Search
         initialValue={initialValue}
@@ -31,7 +31,7 @@ describe('search component', () => {
     expect(screen.getByDisplayValue(/super/i)).toBeInTheDocument();
   });
 
-  it('render search component without initial value', async () => {
+  it('render Search component without initial value', async () => {
     render(
       <Search
         initialValue={''}

@@ -3,10 +3,10 @@ import { describe, it, beforeEach, expect, vi } from 'vitest';
 
 import { router } from './routeProvider';
 import { Paths } from 'models/routerTypes';
-import { SearchRequest } from '../../../utils/api/search-request';
+import { GetData } from '../../../utils/api/get-data.ts';
 
-vi.mock('../../../utils/api/search-request', () => ({
-  SearchRequest: vi.fn(),
+vi.mock('../../../utils/api/get-data.ts', () => ({
+  GetData: vi.fn(),
 }));
 
 vi.mock('pages', () => ({
@@ -16,7 +16,7 @@ vi.mock('pages', () => ({
   NotFound: () => <div data-testid="not-found">NotFound</div>,
 }));
 
-vi.mock('../../../components/errorBoundary', () => ({
+vi.mock('../../../components/ErrorBoundary', () => ({
   ErrorElement: () => <div data-testid="error-boundary">ErrorBoundary</div>,
 }));
 
@@ -36,30 +36,30 @@ describe('RouteProvider – loader unit tests', () => {
     vi.clearAllMocks();
   });
 
-  it('calls SearchRequest with query and page params', async () => {
+  it('calls GetData with query and page params', async () => {
     const fakeData = [{ id: 1 }];
 
-    (SearchRequest as vi.Mock).mockResolvedValueOnce(fakeData);
+    (GetData as vi.Mock).mockResolvedValueOnce(fakeData);
 
     const loader = getSearchLoader();
     const fakeRequest = new Request('http://localhost/?query=spider&page=3');
 
     const result = await loader({ request: fakeRequest });
 
-    expect(SearchRequest).toHaveBeenCalledOnce();
-    expect(SearchRequest).toHaveBeenCalledWith('spider', 3);
+    expect(GetData).toHaveBeenCalledOnce();
+    expect(GetData).toHaveBeenCalledWith('spider', 3);
     expect(result).toEqual({ data: fakeData, query: 'spider', page: 3 });
   });
 
   it('defaults missing params: empty query & page=1', async () => {
-    (SearchRequest as vi.Mock).mockResolvedValueOnce([]);
+    (GetData as vi.Mock).mockResolvedValueOnce([]);
 
     const loader = getSearchLoader();
     const fakeRequest = new Request('http://localhost/');
 
     const result = await loader({ request: fakeRequest });
 
-    expect(SearchRequest).toHaveBeenCalledWith('', 1);
+    expect(GetData).toHaveBeenCalledWith('', 1);
     expect(result).toEqual({ data: [], query: '', page: 1 });
   });
 });

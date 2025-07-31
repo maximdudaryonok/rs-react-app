@@ -5,7 +5,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Loader } from './Loader';
 import createFetchMock from 'vitest-fetch-mock';
 import { SearchResponse } from 'shared/lib/api/types';
-import { SearchPage } from 'pages';
+import { SearchPage } from '../../../pages';
 
 const fetchMock = createFetchMock(vi);
 fetchMock.enableMocks();

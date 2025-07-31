@@ -23,8 +23,8 @@ vi.mock('react-router-dom', () => ({
 }));
 
 import { List } from './List';
-import { Paths } from '../../models/routerTypes';
-import type { HeroResponse } from '../../models';
+import { Paths } from '../../../models/routerTypes';
+import type { HeroResponse } from '../../../models';
 
 describe('List component', () => {
   beforeEach(() => {

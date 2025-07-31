@@ -1,6 +1,6 @@
 import { type JSX } from 'react';
-import loader from 'assets/loader.png';
-import style from './Loader.module.css';
+import loader from '../../../assets/loader.png';
+import style from './Loader.module.scss';
 
 const Loader: () => JSX.Element = () => {
   return (

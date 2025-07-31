@@ -5,11 +5,11 @@ import {
   useNavigate,
   NavLink,
 } from 'react-router-dom';
-import { List } from '../../components/List/List';
+import { List } from '../../components/List';
 import { Pagination } from '../../components/Pagination';
-import { Loader } from '../../components/Loader/Loader';
-import { Search } from '../../features/search';
-import { SearchRequest } from '../../utils/api/search-request';
+import { Loader } from '../../components/Loader';
+import { Search } from '../../features/Search';
+import { GetData } from '../../utils/api/get-data.ts';
 import { Paths } from '../../models/routerTypes';
 import style from './SearchPage.module.scss';
 import type { HeroResponse } from '../../models';
@@ -39,7 +39,7 @@ const SearchPage: () => JSX.Element = () => {
   useEffect(() => {
     setState((s) => ({ ...s, loading: true, error: null }));
 
-    SearchRequest(query, page)
+    GetData(query, page)
       .then((data) => {
         if (data) {
           setState({

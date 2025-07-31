@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1753711337037" clover="3.2.0">
-  <project timestamp="1753711337038" name="All files">
+<coverage generated="1753984871373" clover="3.2.0">
+  <project timestamp="1753984871373" name="All files">
     <metrics statements="587" coveredstatements="481" conditionals="101" coveredconditionals="79" methods="45" coveredmethods="36" elements="733" coveredelements="596" complexity="0" loc="587" ncloc="587" packages="17" files="19" classes="19"/>
     <package name="src">
       <metrics statements="19" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -161,9 +161,9 @@
         <line num="18" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="src.components.List">
+    <package name="src.components.List.ui">
       <metrics statements="28" coveredstatements="28" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
-      <file name="List.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\components\List\List.tsx">
+      <file name="List.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\components\List\ui\List.tsx">
         <metrics statements="28" coveredstatements="28" conditionals="4" coveredconditionals="4" methods="3" coveredmethods="3"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -195,9 +195,9 @@
         <line num="38" count="4" type="stmt"/>
       </file>
     </package>
-    <package name="src.components.Loader">
+    <package name="src.components.Loader.ui">
       <metrics statements="9" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
-      <file name="Loader.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\components\Loader\Loader.tsx">
+      <file name="Loader.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\components\Loader\ui\Loader.tsx">
         <metrics statements="9" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -258,9 +258,9 @@
         <line num="60" count="8" type="stmt"/>
       </file>
     </package>
-    <package name="src.features.search.hooks">
+    <package name="src.features.Search.hooks">
       <metrics statements="9" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="useSearchQuery.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\features\search\hooks\useSearchQuery.tsx">
+      <file name="useSearchQuery.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\features\Search\hooks\useSearchQuery.tsx">
         <metrics statements="9" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -273,9 +273,9 @@
         <line num="9" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="src.features.search.ui">
+    <package name="src.features.Search.ui">
       <metrics statements="58" coveredstatements="58" conditionals="10" coveredconditionals="10" methods="4" coveredmethods="4"/>
-      <file name="Search.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\features\search\ui\Search.tsx">
+      <file name="Search.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\features\Search\ui\Search.tsx">
         <metrics statements="58" coveredstatements="58" conditionals="10" coveredconditionals="10" methods="4" coveredmethods="4"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -632,7 +632,7 @@
     </package>
     <package name="src.utils.api">
       <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
-      <file name="search-request.ts" path="C:\Users\Дария\Desktop\rick-morty\src\utils\api\search-request.ts">
+      <file name="get-data.ts" path="C:\Users\Дария\Desktop\rick-morty\src\utils\api\get-data.ts">
         <metrics statements="17" coveredstatements="17" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
         <line num="1" count="1" type="stmt"/>
         <line num="7" count="1" type="cond" truecount="1" falsecount="0"/>

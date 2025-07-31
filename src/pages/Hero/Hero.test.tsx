@@ -4,9 +4,9 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { vi, describe, beforeEach, afterEach, it, expect } from 'vitest';
 
 import { Hero } from './Hero';
-import { getSingleHero } from '../../utils/api/search-request';
+import { getSingleHero } from '../../utils/api/get-data';
 
-vi.mock('../../utils/api/search-request', () => ({
+vi.mock('../../utils/api/get-data.ts', () => ({
   getSingleHero: vi.fn(),
 }));
 

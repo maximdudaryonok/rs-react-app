@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
-import { SearchRequest, getSingleHero } from './search-request';
+import { GetData, getSingleHero } from './get-data';
 import { BASE_URL, params } from 'shared/constants';
 
 type FetchMock = ReturnType<typeof vi.fn>;
@@ -8,7 +8,6 @@ describe('SearchRequest', () => {
   let fetchMock: FetchMock;
 
   beforeEach(() => {
-    // stub global.fetch before each test
     fetchMock = vi.fn();
     Object.defineProperty(globalThis, 'fetch', {
       writable: true,
@@ -27,7 +26,7 @@ describe('SearchRequest', () => {
       json: vi.fn().mockResolvedValue(mockData),
     });
 
-    const result = await SearchRequest();
+    const result = await GetData();
     const expectedUrl = `${BASE_URL}?page=1`;
 
     expect(fetchMock).toHaveBeenCalledWith(expectedUrl, params);
@@ -44,7 +43,7 @@ describe('SearchRequest', () => {
       json: vi.fn().mockResolvedValue(mockData),
     });
 
-    const result = await SearchRequest('', 5);
+    const result = await GetData('', 5);
     const expectedUrl = `${BASE_URL}?page=5`;
 
     expect(fetchMock).toHaveBeenCalledWith(expectedUrl, params);
@@ -61,7 +60,7 @@ describe('SearchRequest', () => {
       json: vi.fn().mockResolvedValue(mockData),
     });
 
-    const result = await SearchRequest('Morty', 2);
+    const result = await GetData('Morty', 2);
     const expectedUrl = `${BASE_URL}?page=2&name=Morty`;
 
     expect(fetchMock).toHaveBeenCalledWith(expectedUrl, params);
