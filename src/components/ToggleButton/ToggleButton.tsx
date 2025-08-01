@@ -1,8 +1,8 @@
-import { FC, useContext } from 'react';
+import { JSX, useContext } from 'react';
 import style from './ToggleButton.module.scss';
 import { ThemeContext } from 'app/store/Themecontext';
 
-const ToggleButton: FC = () => {
+const ToggleButton: () => JSX.Element = () => {
   const { isDarkMode, setIsDarkMode } = useContext(ThemeContext);
 
   const handleClick = () => {

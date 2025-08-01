@@ -4,6 +4,7 @@ import { ThemeContext } from 'app/store/Themecontext';
 import { ToggleButton } from './ToggleButton';
 import style from './ToggleButton.module.scss';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 
 describe('ToggleButton component', () => {
   it('renders button with appropriate class based on isDarkMode', () => {

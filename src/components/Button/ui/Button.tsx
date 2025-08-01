@@ -1,13 +1,14 @@
 import { ThemeContext } from 'app/store/Themecontext';
-import { FC, ReactNode, useContext } from 'react';
+import { JSX, ReactNode, useContext } from 'react';
 import style from './Button.module.scss';
 
-interface ButtonProps {
-  children?: ReactNode;
+const Button: ({
+  children,
+  onClick,
+}: {
+  children: ReactNode;
   onClick?: () => void;
-}
-
-const Button: FC<ButtonProps> = ({ children, onClick }) => {
+}) => JSX.Element = ({ children, onClick }) => {
   const { isDarkMode } = useContext(ThemeContext);
 
   return (

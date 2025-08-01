@@ -28,10 +28,7 @@ const List: FC<ListProps> = ({ heroes }) => {
     navigate(`${Paths.hero}${id}${location.search}`);
   };
 
-  const handleFavouriteChange = (
-    e: SyntheticEvent,
-    hero: HeroResponse
-  ) => {
+  const handleFavouriteChange = (e: SyntheticEvent, hero: HeroResponse) => {
     e.stopPropagation();
     const isAlreadyFav = favourites.heroes.some((h) => h.id === hero.id);
     const item = {
@@ -58,32 +55,22 @@ const List: FC<ListProps> = ({ heroes }) => {
           key={hero.id}
           data-testid={`card-${hero.id}`}
           className={
-            isDarkMode
-              ? `${style.card} ${style.card_dark}`
-              : style.card
+            isDarkMode ? `${style.card} ${style.card_dark}` : style.card
           }
           onClick={(e) => handleCardClick(e, hero.id)}
         >
-          <img
-            src={hero.image}
-            className={style.hero_img}
-            alt={hero.name}
-          />
+          <img src={hero.image} className={style.hero_img} alt={hero.name} />
           <h3 data-testid="cardItem" className={style.hero_desc}>
             {hero.name}
           </h3>
-          <p className={style.hero_desc}>
-            Location: {hero.location.name}
-          </p>
+          <p className={style.hero_desc}>Location: {hero.location.name}</p>
           <div className={style.checkbox_wrapper}>
             <input
               type="checkbox"
               className={style.checkbox}
               checked={favourites.heroes.some((h) => h.id === hero.id)}
               onClick={(e) => e.stopPropagation()}
-              onChange={(e) =>
-                handleFavouriteChange(e, hero)
-              }
+              onChange={(e) => handleFavouriteChange(e, hero)}
             />
           </div>
         </li>
