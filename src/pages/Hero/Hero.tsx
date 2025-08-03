@@ -2,7 +2,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import type { HeroResponse } from 'models/index';
 import style from './Hero.module.scss';
 import { Paths } from 'models/routerTypes.ts';
-import { JSX, useContext, useEffect, useState } from 'react';
+import { type JSX, useContext, useEffect, useState } from 'react';
 import { ThemeContext } from 'app/store/Themecontext';
 import { useGetHeroQuery } from 'shared/api';
 

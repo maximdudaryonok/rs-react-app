@@ -4,6 +4,7 @@ import { ThemeContext } from 'app/store/Themecontext';
 import { Button } from './Button';
 import style from './Button.module.scss';
 import userEvent from '@testing-library/user-event';
+import React from 'react';
 
 describe('Button component', () => {
   it('renders button with dark mode styles when isDarkMode is true', () => {

@@ -4,10 +4,11 @@ import { Provider } from 'react-redux';
 import { describe, expect, it, vi } from 'vitest';
 import { Favourite } from './Favourite';
 import userEvent from '@testing-library/user-event';
-import { List } from 'widget/List';
+import { List } from '../../List';
 import { BrowserRouter } from 'react-router-dom';
 import style from './Favourite.module.scss';
 import { heroes, store } from 'shared/lib/__mock__';
+import React from 'react';
 
 global.URL.createObjectURL = vi.fn(() => 'fake-url');
 const mockContextValue = { isDarkMode: false, setIsDarkMode: vi.fn() };

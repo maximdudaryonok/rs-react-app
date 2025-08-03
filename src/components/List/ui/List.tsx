@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent, useContext } from 'react';
+import { type FC, type SyntheticEvent, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import type { HeroResponse } from '../../../models';
 import { Paths } from '../../../models/routerTypes';

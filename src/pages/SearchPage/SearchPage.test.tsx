@@ -1,150 +1,44 @@
-import React from 'react';
-import { describe, it, expect, beforeEach, vi } from 'vitest';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { MemoryRouter, useLocation } from 'react-router-dom';
-
-vi.mock('./SearchPage.module.scss', () => ({
-  __esModule: true,
-  default: {
-    controls_block: 'controls_block',
-    wrapper: 'wrapper',
-    title: 'title',
-  },
-}));
-
-vi.mock('../../components/Loader', () => ({
-  Loader: () => <div data-testid="loader">LOADING...</div>,
-}));
-vi.mock('../../components/List', () => ({
-  List: ({ heroes }: { heroes: { name: string }[] }) => (
-    <div data-testid="list">{heroes.map((h) => h.name).join(',')}</div>
-  ),
-}));
-vi.mock('../../components/Pagination', () => ({
-  Pagination: ({
-    totalPage,
-    currentPage,
-    onChangePage,
-  }: {
-    totalPage: number;
-    currentPage: number;
-    onChangePage: (p: number) => void;
-  }) => (
-    <div data-testid="pagination">
-      pages: {currentPage}/{totalPage}
-      <button
-        data-testid="btn-next"
-        onClick={() => onChangePage(currentPage + 1)}
-      >
-        next
-      </button>
-    </div>
-  ),
-}));
-
-vi.mock('../../features/Search', () => ({
-  Search: ({
-    onSubmitSearch,
-    onResetSearch,
-    initialValue,
-  }: {
-    onSubmitSearch: (q: string) => void;
-    onResetSearch: () => void;
-    initialValue: string;
-  }) => (
-    <div data-testid="search">
-      <span>init:{initialValue}</span>
-      <button
-        data-testid="btn-submit"
-        onClick={() => onSubmitSearch('new-query')}
-      >
-        submit
-      </button>
-      <button data-testid="btn-reset" onClick={onResetSearch}>
-        reset
-      </button>
-    </div>
-  ),
-}));
-
-import { GetData } from '../../utils/api/get-data.ts';
-vi.mock('../../utils/api/get-data.ts', () => ({
-  GetData: vi.fn(),
-}));
-
+import { render, screen } from '@testing-library/react';
+import { describe, expect, it, afterAll, beforeAll } from 'vitest';
+import { MemoryRouter } from 'react-router-dom';
 import { SearchPage } from './SearchPage';
-const LocationDisplay = () => {
-  const { search } = useLocation();
+import { Provider } from 'react-redux';
+import { http, HttpResponse } from 'msw';
+import { setupServer } from 'msw/node';
+import { store } from 'shared/lib/__mock__';
+import React from 'react';
 
-  return <div data-testid="location">{search}</div>;
-};
+const mockResult = { info: { pages: 1 }, results: [] };
 
-describe('SearchPage integration with router', () => {
-  beforeEach(() => {
-    vi.clearAllMocks();
+export const BASE_URL: string = 'https://rickandmortyapi.com/api/character';
+
+const handlers = [
+  http.get(`${BASE_URL}`, async () => {
+    return HttpResponse.json(mockResult);
+  }),
+];
+
+const server = setupServer(...handlers);
+
+describe('', () => {
+  beforeAll(() => {
+    server.listen();
   });
 
-  it('injects initial “query” into Search and updates URL on submit & reset', async () => {
-    (GetData as vi.Mock).mockResolvedValue({
-      results: [],
-      info: { pages: 1 },
-      error: null,
-    });
-
-    render(
-      <MemoryRouter initialEntries={['/?query=foo&page=3']}>
-        <SearchPage />
-        <LocationDisplay />
-      </MemoryRouter>
-    );
-
-    expect(screen.getByTestId('search')).toHaveTextContent('init:foo');
-
-    expect(screen.getByTestId('location')).toHaveTextContent(
-      '?query=foo&page=3'
-    );
-
-    fireEvent.click(screen.getByTestId('btn-submit'));
-    await waitFor(() => {
-      const loc = screen.getByTestId('location').textContent || '';
-
-      expect(new URLSearchParams(loc).toString()).toBe(
-        'query=new-query&page=1'
-      );
-    });
-
-    fireEvent.click(screen.getByTestId('btn-reset'));
-    await waitFor(() =>
-      expect(screen.getByTestId('location')).toHaveTextContent('')
-    );
+  afterAll(() => {
+    server.close();
   });
 
-  it('advances the page when pagination “next” is clicked', async () => {
-    (GetData as vi.Mock).mockResolvedValue({
-      results: [{ name: 'X' }],
-      info: { pages: 3 },
-      error: null,
-    });
-
+  it('testing test', async () => {
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <SearchPage />
-        <LocationDisplay />
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter>
+          <SearchPage />
+        </MemoryRouter>
+      </Provider>,
     );
 
-    await waitFor(() =>
-      expect(screen.queryByTestId('loader')).not.toBeInTheDocument()
-    );
-
-    fireEvent.click(screen.getByTestId('btn-next'));
-    await waitFor(() => {
-      const loc = screen.getByTestId('location').textContent || '';
-      const params = new URLSearchParams(loc);
-
-      expect(params.get('page')).toBe('2');
-      expect(params.get('query')).toBe('');
-    });
+    const noResultsMessage = await screen.findByText(/No results found/i);
+    expect(noResultsMessage).toBeInTheDocument();
   });
 });

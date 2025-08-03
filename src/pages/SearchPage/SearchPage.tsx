@@ -1,11 +1,11 @@
-import { JSX, useEffect, useState } from 'react';
+import { type JSX, useEffect, useState } from 'react';
 import style from './SearchPage.module.scss';
 import { Loader } from '../../components/Loader';
 import { List } from '../../components/List';
 import { Pagination } from '../../components/Pagination';
 import { Outlet, useSearchParams } from 'react-router-dom';
-import { useSearchQuery } from 'features/search/hooks/useSearchQuery';
-import { Search } from 'features/search';
+import { useSearchQuery } from 'features/Search/hooks/useSearchQuery';
+import { Search } from 'features/Search';
 import { ToggleButton } from '../../components/ToggleButton/ToggleButton.tsx';
 import { useGetAllHeroesQuery } from 'shared/api';
 import type { HeroResponse } from 'models/index.ts';

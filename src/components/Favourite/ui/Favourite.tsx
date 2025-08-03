@@ -1,4 +1,4 @@
-import { JSX, useContext } from 'react';
+import { type JSX, useContext } from 'react';
 import { ThemeContext } from 'app/store/Themecontext';
 import { Button } from 'components/Button';
 import { useAppDispatch } from 'shared/hooks/useAppDispatch/useAppDispatch';

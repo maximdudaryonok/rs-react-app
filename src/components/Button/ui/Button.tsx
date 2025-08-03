@@ -1,5 +1,5 @@
 import { ThemeContext } from 'app/store/Themecontext';
-import { JSX, ReactNode, useContext } from 'react';
+import { type JSX, type ReactNode, useContext } from 'react';
 import style from './Button.module.scss';
 
 const Button: ({

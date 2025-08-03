@@ -3,6 +3,7 @@ import { describe, it, expect } from 'vitest';
 import { Provider } from 'react-redux';
 import { StoreProvider } from './storeProvider';
 import { store } from '../config/store';
+import React from 'react';
 
 describe('StoreProvider component', () => {
   it('renders children correctly', () => {

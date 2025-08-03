@@ -1,4 +1,4 @@
-import { JSX, useContext } from 'react';
+import { type JSX, useContext } from 'react';
 import style from './ToggleButton.module.scss';
 import { ThemeContext } from 'app/store/Themecontext';
 

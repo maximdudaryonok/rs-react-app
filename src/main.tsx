@@ -11,7 +11,7 @@ if (!rootElement) {
   throw new Error('Failed to find #root element');
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
     <ErrorBoundary>
       <StoreProvider>
