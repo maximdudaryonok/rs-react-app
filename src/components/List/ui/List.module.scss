@@ -34,3 +34,26 @@ li {
  list-style: none;
   cursor: pointer;
 }
+
+.card_dark {
+  border: 1px solid var(--border-color);
+  background-color: lightgray;
+  color: var(--border-color);
+
+  @media (hover: hover) {
+    &:hover {
+      box-shadow: rgba(233, 233, 241, 0.2) 0px 7px 29px 0px;
+    }
+  }
+}
+
+.checkbox_wrapper {
+  display: flex;
+  margin-left: auto;
+  align-items: flex-end;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+}

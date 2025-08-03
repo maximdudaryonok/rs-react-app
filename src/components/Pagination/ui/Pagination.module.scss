@@ -16,6 +16,10 @@
   border-radius: 50%;
 }
 
+.dots_item_dark {
+  color: lightgray;
+}
+
 .item {
   display: flex;
   justify-content: center;
@@ -76,4 +80,11 @@
   width: 20px;
   height: 20px;
   transform: rotate(180deg);
+}
+
+.item_dark {
+  background-color: lightgray;
+}
+.active_dark {
+  background-color: peachpuff;
 }

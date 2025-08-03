@@ -8,6 +8,8 @@ export default defineConfig({
       models: resolve(__dirname, 'src/models'),
       shared: resolve(__dirname, 'src/shared'),
       pages: resolve(__dirname, 'src/pages'),
+      components: resolve(__dirname, 'src/components'),
+      features: resolve(__dirname, 'src/features'),
       routerProvider: resolve(__dirname, 'src/app/providers'),
       app: resolve(__dirname, 'src/app'),
     },

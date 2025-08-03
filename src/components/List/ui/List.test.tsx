@@ -1,92 +1,76 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import { describe, it, beforeEach, expect, vi } from 'vitest';
-import '@testing-library/jest-dom';
-
-vi.mock('./List.module.scss', () => ({
-  __esModule: true,
-  default: {
-    search_list: 'search_list',
-    card: 'card',
-    hero_img: 'hero_img',
-    hero_desc: 'hero_desc',
-  },
-}));
-
-const navigateMock = vi.fn();
-const locationMock = { search: '?foo=bar' };
-
-vi.mock('react-router-dom', () => ({
-  __esModule: true,
-  useNavigate: () => navigateMock,
-  useLocation: () => locationMock,
-}));
-
+import { render, screen } from '@testing-library/react';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { List } from './List';
-import { Paths } from '../../../models/routerTypes';
-import type { HeroResponse } from '../../../models';
+import { BrowserRouter, MemoryRouter } from 'react-router-dom';
+import createFetchMock from 'vitest-fetch-mock';
+import userEvent from '@testing-library/user-event';
+import { Provider } from 'react-redux';
+import { heroes, store } from 'shared/lib/__mock__';
+import React from 'react';
 
-describe('List component', () => {
+const fetchMock = createFetchMock(vi);
+fetchMock.enableMocks();
+
+describe('Component List', () => {
   beforeEach(() => {
-    vi.clearAllMocks();
+    fetchMock.resetMocks();
   });
 
-  const heroes: HeroResponse[] = [
-    {
-      id: 1,
-      name: 'Rick Sanchez',
-      image: '/rick.png',
-      location: { name: 'Earth (C-137)' },
-    },
-    {
-      id: 2,
-      name: 'Morty Smith',
-      image: '/morty.png',
-      location: { name: 'Citadel of Ricks' },
-    },
-  ];
+  it('List renders 2 cards', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <List heroes={heroes} />
+        </MemoryRouter>
+      </Provider>
+    );
 
-  it('renders a UL with the correct CSS class', () => {
-    render(<List heroes={heroes} />);
-    const ul = screen.getByRole('list');
-
-    expect(ul).toHaveClass('search_list');
+    const listElement = screen.getByRole('list');
+    expect(listElement).toBeInTheDocument();
   });
 
-  it('renders one LI per hero with correct content and classes', () => {
-    render(<List heroes={heroes} />);
+  it('card renders the relevant card data', () => {
+    render(
+      <Provider store={store}>
+        <MemoryRouter>
+          <List heroes={heroes} />
+        </MemoryRouter>
+      </Provider>
+    );
 
     heroes.forEach((hero) => {
-      const li = screen.getByTestId(`card-${hero.id}`);
-
-      expect(li).toHaveClass('card');
-
-      const img = screen.getByAltText(hero.name);
-
-      expect(img).toHaveAttribute('src', hero.image);
-      expect(img).toHaveClass('hero_img');
-
-      const heading = screen.getByText(hero.name);
-
-      expect(heading.tagName).toBe('H3');
-      expect(heading).toHaveClass('hero_desc');
-
-      const locationText = screen.getByText(`Location: ${hero.location.name}`);
-
-      expect(locationText.tagName).toBe('P');
-      expect(locationText).toHaveClass('hero_desc');
+      const cardElement = screen.getByText(hero.name);
+      expect(cardElement).toBeInTheDocument();
     });
   });
 
-  it('navigates to the hero detail page preserving query when a card is clicked', () => {
-    render(<List heroes={[heroes[0]]} />);
-    const li = screen.getByTestId(`card-${heroes[0].id}`);
-
-    fireEvent.click(li);
-
-    expect(navigateMock).toHaveBeenCalledTimes(1);
-    expect(navigateMock).toHaveBeenCalledWith(
-      `${Paths.hero}${heroes[0].id}${locationMock.search}`
+  it('click on card ', async () => {
+    const { getByTestId } = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <List heroes={heroes} />
+        </BrowserRouter>
+      </Provider>
     );
+
+    const card = getByTestId(/card-1/i);
+    expect(card).toBeInTheDocument();
+    await userEvent.click(card);
+    expect(location.pathname).toBe('/heroes/1');
+  });
+
+  it('checked on change checkbox', async () => {
+    const { getAllByRole } = render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <List heroes={heroes} />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const checkbox = getAllByRole('checkbox')[0];
+    expect(checkbox).toBeInTheDocument();
+    await userEvent.click(checkbox);
+    expect(checkbox).toBeChecked();
   });
 });

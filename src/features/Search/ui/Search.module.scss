@@ -24,6 +24,10 @@
   color: var(--border-color);
 }
 
+.search_input_dark, .search_button_dark {
+  background-color: lightgray;
+}
+
 .clear_btn {
   position: absolute;
   right: 30px;
@@ -60,4 +64,8 @@
 
 .search_button:active {
   transform: translateY(2px);
+}
+
+.search_button_dark {
+  background-color: lightgray;
 }

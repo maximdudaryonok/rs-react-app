@@ -1,11 +1,13 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Loader } from './Loader';
 import createFetchMock from 'vitest-fetch-mock';
-import { SearchResponse } from 'shared/lib/api/types';
-import { SearchPage } from '../../../pages';
+import { SearchPage } from 'pages';
+import { Provider } from 'react-redux';
+import React from 'react';
+import { store } from 'shared/lib/__mock__';
+import { SearchResponse } from '../../../models';
 
 const fetchMock = createFetchMock(vi);
 fetchMock.enableMocks();
@@ -50,11 +52,13 @@ describe('Component Loader', () => {
     fetchMock.mockResponseOnce(JSON.stringify(mockResponse));
 
     render(
-      <MemoryRouter initialEntries={['/']}>
-        <Routes>
-          <Route path="/" element={<SearchPage />} />
-        </Routes>
-      </MemoryRouter>
+      <Provider store={store}>
+        <MemoryRouter initialEntries={['/']}>
+          <Routes>
+            <Route path="/" element={<SearchPage />} />
+          </Routes>
+        </MemoryRouter>
+      </Provider>
     );
 
     expect(screen.getByAltText(/loader/i)).toBeInTheDocument();
