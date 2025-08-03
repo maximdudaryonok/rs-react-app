@@ -3,7 +3,7 @@ import style from './SearchPage.module.scss';
 import { Loader } from '../../components/Loader';
 import { List } from '../../components/List';
 import { Pagination } from '../../components/Pagination';
-import { Outlet, useSearchParams } from 'react-router-dom';
+import { NavLink, Outlet, useSearchParams } from 'react-router-dom';
 import { useSearchQuery } from 'features/Search/hooks/useSearchQuery';
 import { Search } from 'features/Search';
 import { ToggleButton } from '../../components/ToggleButton/ToggleButton.tsx';
@@ -12,6 +12,7 @@ import type { HeroResponse } from 'models/index.ts';
 import { Favourite } from '../../components/Favourite';
 import { useSelector } from 'react-redux';
 import { getFavourites } from 'features/controlFavoriteMovies';
+import { Paths } from 'models/routerTypes.ts';
 
 interface SearchPageState {
   heroes: Array<HeroResponse>;
@@ -93,6 +94,16 @@ const SearchPage: () => JSX.Element = () => {
 
   return (
     <div>
+      <nav className={style.navmain}>
+        <NavLink
+          to={Paths.about}
+          className={({ isActive }) =>
+            isActive ? style.activeLink : style.link
+          }
+        >
+          About
+        </NavLink>
+      </nav>
       <div className={style.controls_block}>
         <Search
           onSubmitSearch={onSubmitSearch}

@@ -41,7 +41,8 @@ const heroes = [
 ];
 
 export const BASE_URL: string = 'https://rickandmortyapi.com/api/character';
-export const BASE_URL_HERO: string = 'https://rickandmortyapi.com/api/character/1';
+export const BASE_URL_HERO: string =
+  'https://rickandmortyapi.com/api/character/1';
 
 const handlers = [
   http.get(`${BASE_URL}`, async () => {
@@ -70,7 +71,7 @@ describe('Component Hero', () => {
           <Hero />
         </MemoryRouter>
         ,
-      </Provider>,
+      </Provider>
     );
 
     const loading = getByText(/loading.../i);

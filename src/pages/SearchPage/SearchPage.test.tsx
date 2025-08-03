@@ -35,7 +35,7 @@ describe('', () => {
         <MemoryRouter>
           <SearchPage />
         </MemoryRouter>
-      </Provider>,
+      </Provider>
     );
 
     const noResultsMessage = await screen.findByText(/No results found/i);

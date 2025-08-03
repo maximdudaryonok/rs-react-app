@@ -22,7 +22,7 @@ describe('Component List', () => {
         <MemoryRouter>
           <List heroes={heroes} />
         </MemoryRouter>
-      </Provider>,
+      </Provider>
     );
 
     const listElement = screen.getByRole('list');
@@ -35,7 +35,7 @@ describe('Component List', () => {
         <MemoryRouter>
           <List heroes={heroes} />
         </MemoryRouter>
-      </Provider>,
+      </Provider>
     );
 
     heroes.forEach((hero) => {
@@ -50,7 +50,7 @@ describe('Component List', () => {
         <BrowserRouter>
           <List heroes={heroes} />
         </BrowserRouter>
-      </Provider>,
+      </Provider>
     );
 
     const card = getByTestId(/card-1/i);
@@ -65,7 +65,7 @@ describe('Component List', () => {
         <BrowserRouter>
           <List heroes={heroes} />
         </BrowserRouter>
-      </Provider>,
+      </Provider>
     );
 
     const checkbox = getAllByRole('checkbox')[0];

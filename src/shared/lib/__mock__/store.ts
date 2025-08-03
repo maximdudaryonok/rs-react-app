@@ -7,5 +7,6 @@ export const store = configureStore({
     [heroesApi.reducerPath]: heroesApi.reducer,
     favourite: favoriteReducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(heroesApi.middleware),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(heroesApi.middleware),
 });
