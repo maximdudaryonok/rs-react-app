@@ -1,4 +1,4 @@
-import  { type FC, useContext } from 'react';
+import { type FC, useContext } from 'react';
 import style from './Pagination.module.scss';
 import arrow from 'assets/icons/arrow-left.svg';
 import { getPaginationArray } from '../../../shared/helpers';
@@ -12,11 +12,11 @@ type PaginationProps = {
 };
 
 export const Pagination: FC<PaginationProps> = ({
-                                                  totalPage,
-                                                  currentPage,
-                                                  siblings,
-                                                  onChangePage,
-                                                }) => {
+  totalPage,
+  currentPage,
+  siblings,
+  onChangePage,
+}) => {
   const pages = getPaginationArray(totalPage, currentPage, siblings);
   const { isDarkMode } = useContext(ThemeContext);
 

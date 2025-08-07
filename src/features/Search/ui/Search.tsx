@@ -1,4 +1,11 @@
-import { type FC, useCallback, useEffect, useRef, useState, useContext} from 'react';
+import {
+  type FC,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+  useContext,
+} from 'react';
 import style from './Search.module.scss';
 import { ThemeContext } from '../../../app/store/Themecontext.tsx';
 
@@ -58,7 +65,9 @@ const Search: FC<SearchProps> = (props) => {
           placeholder="search..."
           value={searchValue}
           className={
-            isDarkMode ? `${style.search_input} ${style.search_input_dark}` : style.search_input
+            isDarkMode
+              ? `${style.search_input} ${style.search_input_dark}`
+              : style.search_input
           }
           onChange={handleChangeSearchValue}
         ></input>
@@ -75,9 +84,14 @@ const Search: FC<SearchProps> = (props) => {
         </button>
       </label>
 
-      <button  className={
-        isDarkMode ? `${style.search_button} ${style.search_button_dark}` : style.search_button
-      } type="submit">
+      <button
+        className={
+          isDarkMode
+            ? `${style.search_button} ${style.search_button_dark}`
+            : style.search_button
+        }
+        type="submit"
+      >
         Search
       </button>
     </form>
