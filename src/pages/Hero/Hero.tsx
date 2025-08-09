@@ -6,11 +6,13 @@ import { ThemeContext } from 'app/store/Themecontext';
 import { useGetHeroQuery } from 'shared/api';
 import type { FetchBaseQueryError } from '@reduxjs/toolkit/query';
 import type { SerializedError } from 'vitest';
+import { StatusBarHero } from '../../components/StatusBarHero';
 
 export const Hero = (): JSX.Element | undefined => {
   const { isDarkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
   const locationPath = useLocation();
+
   const id = locationPath.pathname.split('/').pop() ?? '';
 
   const {
@@ -31,21 +33,26 @@ export const Hero = (): JSX.Element | undefined => {
 
   if (isLoading) {
     return (
-      <div className={isDarkMode ? `${style.wrapper} ${style.wrapper_dark}` : style.wrapper}>
-        <button className={style.close_btn} onClick={handleCloseClick}>&times;</button>
+      <div
+        className={
+          isDarkMode ? `${style.wrapper} ${style.wrapper_dark}` : style.wrapper
+        }
+      >
+        <button className={style.close_btn} onClick={handleCloseClick}>
+          &times;
+        </button>
         <div>Loading hero...</div>
       </div>
     );
   }
+
   function isFetchBaseQueryError(err: unknown): err is FetchBaseQueryError {
-    return (
-      typeof err === 'object' &&
-      err !== null &&
-      'data' in err
-    );
+    return typeof err === 'object' && err !== null && 'data' in err;
   }
 
-  interface MessageObj { message: string }
+  interface MessageObj {
+    message: string;
+  }
   function isMessageObj(obj: unknown): obj is MessageObj {
     return (
       typeof obj === 'object' &&
@@ -55,14 +62,11 @@ export const Hero = (): JSX.Element | undefined => {
     );
   }
 
-
   function isSerializedError(err: unknown): err is SerializedError {
     return isMessageObj(err);
   }
 
-
   if (isError) {
-
     let message = 'Unknown error';
 
     if (isFetchBaseQueryError(error)) {
@@ -70,33 +74,55 @@ export const Hero = (): JSX.Element | undefined => {
 
       if (typeof data === 'string') {
         message = data;
-      }
-      else if (isMessageObj(data)) {
+      } else if (isMessageObj(data)) {
         message = data.message;
       }
-    }
-
-    else if (isSerializedError(error)) {
+    } else if (isSerializedError(error)) {
       message = error.message;
     }
 
     return (
-      <div className={isDarkMode ? `${style.wrapper} ${style.wrapper_dark}` : style.wrapper}>
-        <button className={style.close_btn} onClick={handleCloseClick}>&times;</button>
+      <div
+        className={
+          isDarkMode ? `${style.wrapper} ${style.wrapper_dark}` : style.wrapper
+        }
+      >
+        <button className={style.close_btn} onClick={handleCloseClick}>
+          &times;
+        </button>
         <div>Error loading hero: {message}</div>
         <button onClick={() => refetch()}>Retry</button>
       </div>
     );
   }
-  if (hero)  {
+
+  if (hero) {
     const { name, image, gender, species, status, location } = hero;
     const locationName = location?.name;
 
     return (
-      <div className={isDarkMode ? `${style.wrapper} ${style.wrapper_dark}` : style.wrapper} data-testid="hero">
-        <button data-testid="close" className={style.close_btn} onClick={handleCloseClick}>&times;</button>
+      <div
+        className={
+          isDarkMode ? `${style.wrapper} ${style.wrapper_dark}` : style.wrapper
+        }
+        data-testid="hero"
+      >
+        <button
+          data-testid="close"
+          className={style.close_btn}
+          onClick={handleCloseClick}
+        >
+          &times;
+        </button>
 
-        {isFetching && <div className={style.hero_info}>Updating hero…</div>}
+
+        <StatusBarHero
+          isLoading={isLoading}
+          isFetching={isFetching}
+          isError={isError}
+          error={error}
+          stayVisibleMs={1500}
+        />
 
         <div>
           <img src={image} className={style.hero_img} alt={name} />
@@ -127,5 +153,4 @@ export const Hero = (): JSX.Element | undefined => {
       </div>
     );
   }
-
 };

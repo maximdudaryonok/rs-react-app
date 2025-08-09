@@ -1,0 +1,23 @@
+.status {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1200;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background: #1f2937;
+  color: #fff;
+  font-size: 14px;
+  line-height: 1;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+  transition: opacity 250ms ease, transform 250ms ease;
+}
+
+.error {
+  background: #b91c1c;
+}
+
+.success {
+  background: #065f46;
+}

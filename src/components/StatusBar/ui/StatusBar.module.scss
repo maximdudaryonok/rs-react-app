@@ -1,0 +1,28 @@
+.status {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: #1f2937;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.3s ease;
+}
+
+.error {
+  background-color: #b91c1c;
+}
+
+.empty {
+  background-color: #facc15;
+  color: #333;
+}
+
+.success {
+  background-color: #065f46;
+}

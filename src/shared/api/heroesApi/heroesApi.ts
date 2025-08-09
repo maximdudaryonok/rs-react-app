@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { BASE_URL }                     from 'shared/constants';
+import { BASE_URL } from 'shared/constants';
 import type { HeroResponse, SearchResponse } from 'models';
 
 export interface GetHeroesSearchParams {
@@ -20,13 +20,12 @@ export const heroesApi = createApi({
       providesTags: (
         result
       ): Array<{ type: 'Hero'; id: number } | 'HeroList'> => {
-
         if (!result?.results?.length) {
           return ['HeroList'];
         }
 
         return [
-          ...result.results.map(hero => ({
+          ...result.results.map((hero) => ({
             type: 'Hero' as const,
             id: hero.id,
           })),
@@ -37,14 +36,9 @@ export const heroesApi = createApi({
 
     getHero: builder.query<HeroResponse, string>({
       query: (id) => `/${id}`,
-      providesTags: (_result, _error, id) => [
-        { type: 'Hero', id },
-      ],
+      providesTags: (_result, _error, id) => [{ type: 'Hero', id }],
     }),
   }),
 });
 
-export const {
-  useGetAllHeroesQuery,
-  useGetHeroQuery,
-} = heroesApi;
+export const { useGetAllHeroesQuery, useGetHeroQuery } = heroesApi;
