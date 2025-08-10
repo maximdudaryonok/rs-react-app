@@ -22,7 +22,7 @@ function extractErrorMessage(
     if (typeof data === 'string') return data;
 
     if (typeof data === 'object' && data !== null && 'message' in data) {
-      const msg = (data as Record<string, unknown>).message;
+      const msg = data.message;
 
       if (typeof msg === 'string') return msg;
     }

@@ -48,11 +48,11 @@ export function StatusBarHero({
 
     if (error && typeof error === 'object') {
       if ('data' in error) {
-        const d = error.data as unknown;
+        const d = error.data;
 
         if (typeof d === 'string') msg = d;
         else if (d && typeof d === 'object' && 'message' in d) {
-          const maybe = (d as Record<string, unknown>).message;
+          const maybe = d.message;
 
           if (typeof maybe === 'string') msg = maybe;
         }

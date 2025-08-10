@@ -20,7 +20,7 @@ export function AdminControls() {
       </button>
 
       <button className={style.refetchButton} onClick={handleReset}>
-         Reset Heroes Cache
+        Reset Heroes Cache
       </button>
     </>
   );

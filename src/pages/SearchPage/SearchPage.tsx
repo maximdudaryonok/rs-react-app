@@ -121,7 +121,7 @@ const SearchPage: () => JSX.Element = () => {
       >
         {isFetching ? 'Refreshing...' : 'Refetch Heroes'}
       </button>
-      <AdminControls/>
+      <AdminControls />
       <StatusBar
         isLoading={isLoading}
         isFetching={isFetching}

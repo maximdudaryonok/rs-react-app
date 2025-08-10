@@ -1,1 +1,1 @@
-export { AdminControls } from './resetApi/resetApi.tsx'
+export { AdminControls } from './resetApi/resetApi.tsx';

@@ -13,7 +13,8 @@ export const Hero = (): JSX.Element | undefined => {
   const navigate = useNavigate();
   const locationPath = useLocation();
 
-  const id = locationPath.pathname.split('/').pop() ?? '';
+  const idParam = locationPath.pathname.split('/').pop() ?? '';
+  const id = Number(idParam);
 
   const {
     data: hero,

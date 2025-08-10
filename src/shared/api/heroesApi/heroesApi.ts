@@ -7,6 +7,10 @@ export interface GetHeroesSearchParams {
   currentPage: number;
 }
 
+type HeroTag = { type: 'Hero'; id: number };
+type HeroListTag = { type: 'HeroList' };
+type TagType = HeroTag | HeroListTag;
+
 export const heroesApi = createApi({
   reducerPath: 'heroesApi',
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL }),
@@ -17,26 +21,25 @@ export const heroesApi = createApi({
       query: ({ searchValue = '', currentPage }) =>
         `?page=${currentPage}${searchValue ? `&name=${searchValue}` : ''}`,
 
-      providesTags: (
-        result
-      ): Array<{ type: 'Hero'; id: number } | 'HeroList'> => {
+      providesTags: (result): TagType[] => {
         if (!result?.results?.length) {
-          return ['HeroList'];
+          return [{ type: 'HeroList' }];
         }
 
-        return [
-          ...result.results.map((hero) => ({
-            type: 'Hero' as const,
-            id: hero.id,
-          })),
-          'HeroList',
-        ];
+        const heroTags: HeroTag[] = result.results.map((hero): HeroTag => ({
+          type: 'Hero',
+          id: hero.id,
+        }));
+
+        return [...heroTags, { type: 'HeroList' }];
       },
     }),
 
-    getHero: builder.query<HeroResponse, string>({
+    getHero: builder.query<HeroResponse, number>({
       query: (id) => `/${id}`,
-      providesTags: (_result, _error, id) => [{ type: 'Hero', id }],
+      providesTags: (_result, _error, id): HeroTag[] => [
+        { type: 'Hero', id },
+      ],
     }),
   }),
 });
