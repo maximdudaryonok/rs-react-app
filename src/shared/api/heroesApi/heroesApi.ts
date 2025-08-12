@@ -26,10 +26,12 @@ export const heroesApi = createApi({
           return [{ type: 'HeroList' }];
         }
 
-        const heroTags: HeroTag[] = result.results.map((hero): HeroTag => ({
-          type: 'Hero',
-          id: hero.id,
-        }));
+        const heroTags: HeroTag[] = result.results.map(
+          (hero): HeroTag => ({
+            type: 'Hero',
+            id: hero.id,
+          })
+        );
 
         return [...heroTags, { type: 'HeroList' }];
       },
@@ -37,9 +39,7 @@ export const heroesApi = createApi({
 
     getHero: builder.query<HeroResponse, number>({
       query: (id) => `/${id}`,
-      providesTags: (_result, _error, id): HeroTag[] => [
-        { type: 'Hero', id },
-      ],
+      providesTags: (_result, _error, id): HeroTag[] => [{ type: 'Hero', id }],
     }),
   }),
 });
