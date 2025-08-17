@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import { Metadata } from 'next';
+import type { Metadata } from 'next';
 import { Loader } from '@/app/src/shared/components/Loader/Loader';
 import { Search } from '../../src/features/search';
 import { ToggleButton } from '../../src/shared/components';
@@ -20,33 +20,27 @@ export const metadata: Metadata = {
 };
 
 export default async function Page({
-  searchParams,
-}: {
-  searchParams: { [key: string]: string | string[] | undefined };
+                                     searchParams,
+                                   }: {
+  searchParams: Record<string, string | string[] | undefined>;
 }) {
-  const { search, page, id } = searchParams;
+  const { search, page, id } = await searchParams;
 
   if (!search && !page) {
     redirect('/heroes?page=1');
   }
 
-  const searchValue = Array.isArray(search) ? search[0] : (search ?? '');
-  const currentPage = Array.isArray(page) ? page[0] : (page ?? 1);
-  const currentHeroId = Array.isArray(id) ? id[0] : (id ?? null);
+  const searchValue = Array.isArray(search) ? search[0] : search ?? '';
+  const currentPage = Array.isArray(page) ? page[0] : page ?? 1;
+  const currentHeroId = Array.isArray(id) ? id[0] : id ?? null;
 
   const data = await SearchRequest(searchValue, Number(currentPage));
+  if (!data) notFound();
 
-  if (!data) {
-    notFound();
-  }
+  const heroes = data?.results ?? [];
+  const currentHero = heroes.find(hero => hero.id === Number(currentHeroId));
 
-  const heroes = data?.results ? data?.results : [];
-  const currentHero = heroes.find((hero) => hero.id === Number(currentHeroId));
-
-  const propsParams = {
-    search: searchValue,
-    page: currentPage,
-  };
+  const propsParams = { search: searchValue, page: currentPage };
 
   return (
     <main>
@@ -58,26 +52,20 @@ export default async function Page({
               <ToggleButton />
             </div>
 
-            <>
-              <div className={style.wrapper}>
-                {heroes?.length > 0 && (
-                  <>
-                    <List heroes={heroes} params={propsParams} />
-                    <Favourite />
-                  </>
-                )}
-                {heroes?.length === 0 && (
-                  <h2 className={style.title}>No results found</h2>
-                )}
-                {currentHero && (
-                  <Hero hero={currentHero} params={propsParams} />
-                )}
-              </div>
-            </>
+            <div className={style.wrapper}>
+              {heroes.length > 0 && (
+                <>
+                  <List heroes={heroes} params={propsParams} />
+                  <Favourite />
+                </>
+              )}
+              {heroes.length === 0 && <h2 className={style.title}>No results found</h2>}
+              {currentHero && <Hero hero={currentHero} params={propsParams} />}
+            </div>
 
             {data?.info?.pages && heroes.length > 0 && (
               <Pagination
-                totalPage={data?.info?.pages}
+                totalPage={data.info.pages}
                 currentPage={Number(currentPage)}
                 siblings={1}
                 searchValue={searchValue}
