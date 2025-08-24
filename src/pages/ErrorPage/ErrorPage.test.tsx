@@ -1,6 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { ErrorPage } from './ErrorPage'
+import React from 'react'
 
 describe('ErrorPage', () => {
   it('renders the ErrorPage heading', () => {

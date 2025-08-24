@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { createMemoryRouter, RouterProvider } from 'react-router-dom'
 import { Path } from '../../shared/types/routePaths'
+import React from 'react'
 
 vi.mock('../../pages/Main/Main', () => ({ Main: () => <div>Main Page</div> }))
 vi.mock('../../pages/ControllForm/ControllForm', () => ({ ControllForm: () => <div>Controll Form Page</div> }))

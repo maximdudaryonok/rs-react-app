@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { Main } from './Main'
-import { Identificator } from '../../app/redux/slices/formsSlice'
+import React from 'react'
 
 vi.mock('./Main.module.css', () => ({
   default: {

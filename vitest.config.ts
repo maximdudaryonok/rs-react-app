@@ -1,7 +1,12 @@
-import { defineConfig } from 'vitest/config';
-import { resolve } from 'path';
+import { defineConfig } from 'vitest/config'
+import { resolve } from 'path'
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      shared: resolve(__dirname, 'src/shared'),
+    },
+  },
   test: {
     globals: true,
     environment: 'jsdom',
@@ -19,13 +24,8 @@ export default defineConfig({
         '**/*.test.tsx',
         '**/index.ts',
         '**/index.tsx',
-        '.prettierrc.cjs',
-        'index.d.ts',
         'src/shared/types/**'
       ],
-      alias: {
-        shared: resolve(__dirname, 'src/shared'),
-      },
       thresholds: {
         global: {
           statements: 80,
@@ -36,4 +36,4 @@ export default defineConfig({
       },
     },
   },
-});
+})

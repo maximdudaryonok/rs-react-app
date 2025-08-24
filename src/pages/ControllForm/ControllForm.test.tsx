@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect, vi } from 'vitest'
 import { ControllForm } from './ControllForm'
 import { Path } from '../../shared/types/routePaths'
+import React from 'react'
 
 vi.mock('../../shared/components/Form/Form', () => ({
   Form: () => <div data-testid="form-component">Mock Form</div>

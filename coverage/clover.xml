@@ -1,8 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1756066817478" clover="3.2.0">
-  <project timestamp="1756066817479" name="All files">
-    <metrics statements="476" coveredstatements="402" conditionals="92" coveredconditionals="73" methods="27" coveredmethods="22" elements="595" coveredelements="497" complexity="0" loc="476" ncloc="476" packages="19" files="24" classes="24"/>
-    <package name="src">
+<coverage generated="1756077622534" clover="3.2.0">
+  <project timestamp="1756077622535" name="All files">
+    <metrics statements="488" coveredstatements="402" conditionals="94" coveredconditionals="73" methods="29" coveredmethods="22" elements="611" coveredelements="497" complexity="0" loc="488" ncloc="488" packages="20" files="26" classes="26"/>
+    <package name="rick-morty">
+      <metrics statements="12" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name=".prettierrc.cjs" path="C:\Users\Дария\Desktop\rick-morty\.prettierrc.cjs">
+        <metrics statements="8" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+        <line num="5" count="0" type="stmt"/>
+        <line num="6" count="0" type="stmt"/>
+        <line num="7" count="0" type="stmt"/>
+        <line num="8" count="0" type="stmt"/>
+      </file>
+      <file name="index.d.ts" path="C:\Users\Дария\Desktop\rick-morty\index.d.ts">
+        <metrics statements="4" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="4" count="0" type="stmt"/>
+      </file>
+    </package>
+    <package name="rick-morty.src">
       <metrics statements="14" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="main.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\main.tsx">
         <metrics statements="14" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -22,7 +43,7 @@
         <line num="14" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="src.app">
+    <package name="rick-morty.src.app">
       <metrics statements="7" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="App.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\app\App.tsx">
         <metrics statements="7" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -35,7 +56,7 @@
         <line num="7" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="src.app.redux.config">
+    <package name="rick-morty.src.app.redux.config">
       <metrics statements="16" coveredstatements="9" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="rootReducer.ts" path="C:\Users\Дария\Desktop\rick-morty\src\app\redux\config\rootReducer.ts">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -63,7 +84,7 @@
         <line num="6" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.app.redux.hooks">
+    <package name="rick-morty.src.app.redux.hooks">
       <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="useAppDispatch.ts" path="C:\Users\Дария\Desktop\rick-morty\src\app\redux\hooks\useAppDispatch.ts">
         <metrics statements="2" coveredstatements="2" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -76,7 +97,7 @@
         <line num="4" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.app.redux.selectors">
+    <package name="rick-morty.src.app.redux.selectors">
       <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="4" coveredmethods="4"/>
       <file name="countriesSelectors.ts" path="C:\Users\Дария\Desktop\rick-morty\src\app\redux\selectors\countriesSelectors.ts">
         <metrics statements="3" coveredstatements="3" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -97,7 +118,7 @@
         <line num="17" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="src.app.redux.slices">
+    <package name="rick-morty.src.app.redux.slices">
       <metrics statements="35" coveredstatements="35" conditionals="3" coveredconditionals="3" methods="2" coveredmethods="2"/>
       <file name="countrySlice.ts" path="C:\Users\Дария\Desktop\rick-morty\src\app\redux\slices\countrySlice.ts">
         <metrics statements="10" coveredstatements="10" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -141,7 +162,7 @@
         <line num="39" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.app.redux.ui">
+    <package name="rick-morty.src.app.redux.ui">
       <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="storeProvider.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\app\redux\ui\storeProvider.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -151,7 +172,7 @@
         <line num="11" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="src.app.routes">
+    <package name="rick-morty.src.app.routes">
       <metrics statements="36" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
       <file name="router.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\app\routes\router.tsx">
         <metrics statements="36" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
@@ -193,7 +214,7 @@
         <line num="36" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="src.pages.ControllForm">
+    <package name="rick-morty.src.pages.ControllForm">
       <metrics statements="9" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="ControllForm.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\pages\ControllForm\ControllForm.tsx">
         <metrics statements="9" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -208,7 +229,7 @@
         <line num="14" count="3" type="stmt"/>
       </file>
     </package>
-    <package name="src.pages.ErrorPage">
+    <package name="rick-morty.src.pages.ErrorPage">
       <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="ErrorPage.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\pages\ErrorPage\ErrorPage.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -218,7 +239,7 @@
         <line num="5" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.pages.Main">
+    <package name="rick-morty.src.pages.Main">
       <metrics statements="26" coveredstatements="24" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="Main.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\pages\Main\Main.tsx">
         <metrics statements="26" coveredstatements="24" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -250,7 +271,7 @@
         <line num="39" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.pages.NotFound">
+    <package name="rick-morty.src.pages.NotFound">
       <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="NotFound.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\pages\NotFound\NotFound.tsx">
         <metrics statements="4" coveredstatements="4" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -260,7 +281,7 @@
         <line num="5" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.pages.UncontrollForm">
+    <package name="rick-morty.src.pages.UncontrollForm">
       <metrics statements="9" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
       <file name="UncontrollForm.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\pages\UncontrollForm\UncontrollForm.tsx">
         <metrics statements="9" coveredstatements="9" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
@@ -275,7 +296,7 @@
         <line num="14" count="3" type="stmt"/>
       </file>
     </package>
-    <package name="src.shared.components.Details">
+    <package name="rick-morty.src.shared.components.Details">
       <metrics statements="35" coveredstatements="35" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
       <file name="Details.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\shared\components\Details\Details.tsx">
         <metrics statements="35" coveredstatements="35" conditionals="3" coveredconditionals="3" methods="1" coveredmethods="1"/>
@@ -316,45 +337,44 @@
         <line num="51" count="3" type="stmt"/>
       </file>
     </package>
-    <package name="src.shared.components.Form">
+    <package name="rick-morty.src.shared.components.Form">
       <metrics statements="70" coveredstatements="64" conditionals="11" coveredconditionals="2" methods="2" coveredmethods="1"/>
       <file name="Form.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\shared\components\Form\Form.tsx">
         <metrics statements="70" coveredstatements="64" conditionals="11" coveredconditionals="2" methods="2" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
-        <line num="18" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="19" count="1" type="stmt"/>
+        <line num="19" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="20" count="1" type="stmt"/>
         <line num="21" count="1" type="stmt"/>
-        <line num="23" count="1" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
         <line num="24" count="1" type="stmt"/>
         <line num="25" count="1" type="stmt"/>
         <line num="26" count="1" type="stmt"/>
         <line num="27" count="1" type="stmt"/>
         <line num="28" count="1" type="stmt"/>
         <line num="29" count="1" type="stmt"/>
-        <line num="31" count="1" type="stmt"/>
-        <line num="32" count="0" type="stmt"/>
+        <line num="30" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
         <line num="33" count="0" type="stmt"/>
-        <line num="35" count="0" type="stmt"/>
+        <line num="34" count="0" type="stmt"/>
         <line num="36" count="0" type="stmt"/>
         <line num="37" count="0" type="stmt"/>
         <line num="38" count="0" type="stmt"/>
-        <line num="40" count="1" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
         <line num="41" count="1" type="stmt"/>
         <line num="42" count="1" type="stmt"/>
         <line num="43" count="1" type="stmt"/>
-        <line num="44" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="46" count="1" type="stmt"/>
+        <line num="44" count="1" type="stmt"/>
+        <line num="45" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="47" count="1" type="stmt"/>
-        <line num="48" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="50" count="1" type="stmt"/>
+        <line num="48" count="1" type="stmt"/>
+        <line num="49" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="51" count="1" type="stmt"/>
-        <line num="52" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="54" count="1" type="stmt"/>
+        <line num="52" count="1" type="stmt"/>
+        <line num="53" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="55" count="1" type="stmt"/>
-        <line num="57" count="1" type="stmt"/>
-        <line num="59" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="61" count="1" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="58" count="1" type="stmt"/>
+        <line num="60" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="62" count="1" type="stmt"/>
         <line num="63" count="1" type="stmt"/>
         <line num="64" count="1" type="stmt"/>
@@ -362,37 +382,38 @@
         <line num="66" count="1" type="stmt"/>
         <line num="67" count="1" type="stmt"/>
         <line num="68" count="1" type="stmt"/>
-        <line num="69" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="71" count="1" type="stmt"/>
+        <line num="69" count="1" type="stmt"/>
+        <line num="70" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="72" count="1" type="stmt"/>
         <line num="73" count="1" type="stmt"/>
         <line num="74" count="1" type="stmt"/>
         <line num="75" count="1" type="stmt"/>
         <line num="76" count="1" type="stmt"/>
         <line num="77" count="1" type="stmt"/>
-        <line num="78" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="80" count="1" type="stmt"/>
+        <line num="78" count="1" type="stmt"/>
+        <line num="79" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="81" count="1" type="stmt"/>
         <line num="82" count="1" type="stmt"/>
-        <line num="83" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="85" count="1" type="stmt"/>
+        <line num="83" count="1" type="stmt"/>
+        <line num="84" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="86" count="1" type="stmt"/>
-        <line num="87" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="89" count="1" type="stmt"/>
+        <line num="87" count="1" type="stmt"/>
+        <line num="88" count="1" type="cond" truecount="0" falsecount="1"/>
         <line num="90" count="1" type="stmt"/>
-        <line num="91" count="1" type="cond" truecount="0" falsecount="1"/>
-        <line num="93" count="1" type="stmt"/>
-        <line num="94" count="1" type="cond" truecount="1" falsecount="0"/>
-        <line num="95" count="2" type="stmt"/>
-        <line num="96" count="1" type="stmt"/>
+        <line num="91" count="1" type="stmt"/>
+        <line num="92" count="1" type="cond" truecount="0" falsecount="1"/>
+        <line num="94" count="1" type="stmt"/>
+        <line num="95" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="96" count="2" type="stmt"/>
         <line num="97" count="1" type="stmt"/>
         <line num="98" count="1" type="stmt"/>
-        <line num="100" count="1" type="stmt"/>
+        <line num="99" count="1" type="stmt"/>
         <line num="101" count="1" type="stmt"/>
-        <line num="103" count="1" type="stmt"/>
+        <line num="102" count="1" type="stmt"/>
+        <line num="104" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="src.shared.components.PasswordStrength">
+    <package name="rick-morty.src.shared.components.PasswordStrength">
       <metrics statements="21" coveredstatements="21" conditionals="10" coveredconditionals="10" methods="1" coveredmethods="1"/>
       <file name="PasswordStrength.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\shared\components\PasswordStrength\PasswordStrength.tsx">
         <metrics statements="21" coveredstatements="21" conditionals="10" coveredconditionals="10" methods="1" coveredmethods="1"/>
@@ -419,7 +440,7 @@
         <line num="33" count="7" type="stmt"/>
       </file>
     </package>
-    <package name="src.shared.components.UncontrolledForm">
+    <package name="rick-morty.src.shared.components.UncontrolledForm">
       <metrics statements="94" coveredstatements="92" conditionals="26" coveredconditionals="22" methods="2" coveredmethods="2"/>
       <file name="UncontrolledForm.tsx" path="C:\Users\Дария\Desktop\rick-morty\src\shared\components\UncontrolledForm\UncontrolledForm.tsx">
         <metrics statements="94" coveredstatements="92" conditionals="26" coveredconditionals="22" methods="2" coveredmethods="2"/>
@@ -519,7 +540,7 @@
         <line num="125" count="6" type="stmt"/>
       </file>
     </package>
-    <package name="src.shared.lib.utils">
+    <package name="rick-morty.src.shared.lib.utils">
       <metrics statements="26" coveredstatements="26" conditionals="16" coveredconditionals="16" methods="4" coveredmethods="4"/>
       <file name="helpers.ts" path="C:\Users\Дария\Desktop\rick-morty\src\shared\lib\utils\helpers.ts">
         <metrics statements="26" coveredstatements="26" conditionals="16" coveredconditionals="16" methods="4" coveredmethods="4"/>
@@ -551,7 +572,7 @@
         <line num="33" count="5" type="stmt"/>
       </file>
     </package>
-    <package name="src.shared.lib.validation">
+    <package name="rick-morty.src.shared.lib.validation">
       <metrics statements="50" coveredstatements="50" conditionals="8" coveredconditionals="6" methods="0" coveredmethods="0"/>
       <file name="validationSchema.ts" path="C:\Users\Дария\Desktop\rick-morty\src\shared\lib\validation\validationSchema.ts">
         <metrics statements="50" coveredstatements="50" conditionals="8" coveredconditionals="6" methods="0" coveredmethods="0"/>

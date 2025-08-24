@@ -9,7 +9,7 @@ import { getCountries } from '../../../app/redux/selectors/countriesSelectors';
 import { useNavigate } from 'react-router-dom';
 import { FormInputs } from '../../types/formTypes.ts';
 import { imageToBase64 } from '../../lib/utils/helpers.ts';
-import * as Path from 'path';
+import { Path } from '../../types/routePaths.ts';
 import { schema } from '../../lib/validation/validationSchema.ts';
 import { PasswordStrength } from '../PasswordStrength/PasswordStrength.tsx';
 

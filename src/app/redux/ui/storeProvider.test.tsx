@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { describe, it, expect } from 'vitest'
 import { StoreProvider } from './StoreProvider'
 import { useSelector } from 'react-redux'
+import React from 'react'
 
 const TestComponent = () => {
   const state = useSelector((state) => state)
