@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Form } from 'shared/components/Form/Form';
-import { Path } from 'shared/types/routePaths';
+import { Form } from '../../shared/components/Form/Form';
+import { Path } from '../../shared/types/routePaths';
 
 export const ControllForm: FC = () => {
   return (

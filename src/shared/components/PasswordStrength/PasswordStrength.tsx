@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import style from './PasswordStrength.module.css';
-import { PASSWORD_STRENGTH_COLORS } from 'shared/types/validation';
-import { getPasswordStrength } from 'shared/lib/utils/helpers';
+import { PASSWORD_STRENGTH_COLORS } from '../../types/validation.ts';
+import { getPasswordStrength } from '../../lib/utils/helpers.ts';
 
 interface PasswordStrengthProps {
   password: string;

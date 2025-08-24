@@ -2,16 +2,18 @@ import { FC } from 'react';
 import style from './Form.module.css';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from 'shared/lib/validation/validationSchema';
-import { FormInputs } from 'shared/types/formTypes';
-import { useAppDispatch } from 'app/redux/hooks/useAppDispatch';
-import { addFControllForm } from 'app/redux/slices/formsSlice';
-import { useAppSelector } from 'app/redux/hooks/useAppSelector';
-import { getCountries } from 'app/redux/selectors/countriesSelectors';
+import { useAppDispatch } from '../../../app/redux/hooks/useAppDispatch.ts';
+import { addFControllForm } from '../../../app/redux/slices/formsSlice';
+import { useAppSelector } from '../../../app/redux/hooks/useAppSelector';
+import { getCountries } from '../../../app/redux/selectors/countriesSelectors';
 import { useNavigate } from 'react-router-dom';
-import { Path } from 'shared/types/routePaths';
-import { imageToBase64 } from 'shared/lib/utils/helpers';
-import { PasswordStrength } from '../PasswordStrength/PasswordStrength';
+import { FormInputs } from '../../types/formTypes.ts';
+import { imageToBase64 } from '../../lib/utils/helpers.ts';
+import * as Path from 'path';
+import { schema } from '../../lib/validation/validationSchema.ts';
+import { PasswordStrength } from '../PasswordStrength/PasswordStrength.tsx';
+
+
 
 export const Form: FC = () => {
   const dispatch = useAppDispatch();

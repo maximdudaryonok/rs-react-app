@@ -19,6 +19,8 @@ export default defineConfig({
         '**/*.test.tsx',
         '**/index.ts',
         '**/index.tsx',
+        '.prettierrc.cjs',
+        'index.d.ts',
         'src/shared/types/**'
       ],
       alias: {

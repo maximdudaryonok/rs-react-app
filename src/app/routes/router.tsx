@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Main } from 'pages/Main/Main';
-import { ControllForm } from 'pages/ControllForm/ControllForm';
-import { UncontrollForm } from 'pages/UncontrollForm/UncontrollForm';
-import { NotFound } from 'pages/NotFound/NotFound';
-import { ErrorPage } from 'pages/ErrorPage/ErrorPage';
+import { Main } from '../../pages/Main/Main';
+import { ControllForm } from '../../pages/ControllForm/ControllForm';
+import { UncontrollForm } from '../../pages/UncontrollForm/UncontrollForm';
+import { NotFound } from '../../pages/NotFound/NotFound';
+import { ErrorPage } from '../../pages/ErrorPage/ErrorPage';
 import { Path } from '../../shared/types/routePaths.ts';
 
 

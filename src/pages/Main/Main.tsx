@@ -1,10 +1,10 @@
-import { useAppSelector } from 'app/redux/hooks/useAppSelector';
-import { getControllForm, getFormsIdentificator, getUnControllForm } from 'app/redux/selectors/formsSelectors';
+import { useAppSelector } from '../../app/redux/hooks/useAppSelector';
+import { getControllForm, getFormsIdentificator, getUnControllForm } from '../../app/redux/selectors/formsSelectors';
 import { Link } from 'react-router-dom';
-import { Details } from 'shared/components/Details/Details';
-import { Path } from 'shared/types/routePaths';
+import { Details } from '../../shared/components/Details/Details';
+import { Path } from '../../shared/types/routePaths';
 import styles from './Main.module.css';
-import { Identificator } from 'app/redux/slices/formsSlice';
+import { Identificator } from '../../app/redux/slices/formsSlice';
 
 export const Main = () => {
   const controllForm = useAppSelector(getControllForm);

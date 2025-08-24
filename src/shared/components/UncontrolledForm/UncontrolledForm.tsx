@@ -1,15 +1,15 @@
 import { FC, useRef, useState } from 'react';
 import * as yup from 'yup';
-import { useAppSelector } from 'app/redux/hooks/useAppSelector';
-import { useAppDispatch } from 'app/redux/hooks/useAppDispatch';
+import { useAppSelector } from '../../../app/redux/hooks/useAppSelector';
+import { useAppDispatch } from '../../../app/redux/hooks/useAppDispatch';
 import { useNavigate } from 'react-router-dom';
-import { schema } from 'shared/lib/validation/validationSchema';
-import { Path } from 'shared/types/routePaths';
-import { getCountries } from 'app/redux/selectors/countriesSelectors';
+import { schema } from '../../lib/validation/validationSchema.ts';
+import { Path } from '../../types/routePaths.ts';
+import { getCountries } from '../../../app/redux/selectors/countriesSelectors';
 import style from './UncontrolledForm.module.css';
-import { addFUnControllForm } from 'app/redux/slices/formsSlice';
-import { Errors, FormInputs } from 'shared/types/formTypes';
-import { imageToBase64 } from 'shared/lib/utils/helpers';
+import { addFUnControllForm } from '../../../app/redux/slices/formsSlice';
+import { Errors, FormInputs } from '../../types/formTypes.ts';
+import { imageToBase64 } from '../../lib/utils/helpers.ts';
 import { PasswordStrength } from '../PasswordStrength/PasswordStrength';
 
 export const UncontrolledForm: FC = () => {
