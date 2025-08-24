@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { countryList } from 'shared/types/countries';
+import { countryList } from '../../../shared/types/countries';
 
 export interface CountryState {
   countries: Array<string>;
