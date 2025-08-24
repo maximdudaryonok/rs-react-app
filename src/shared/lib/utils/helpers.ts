@@ -1,4 +1,5 @@
-import { REG_EXP } from 'shared/types/validation';
+import { REG_EXP } from '../../types/validation.ts';
+
 
 export const imageToBase64 = async (img: File | Blob): Promise<string> => {
   return new Promise((resolve, reject) => {

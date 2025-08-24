@@ -1,6 +1,7 @@
 import * as yup from 'yup';
-import { countryList } from 'shared/types/countries';
-import { FILE_EXTENSIONS, FILE_SIZE, REG_EXP } from 'shared/types/validation';
+import { FILE_EXTENSIONS, FILE_SIZE, REG_EXP } from '../../types/validation.ts';
+import { countryList } from '../../types/countries.ts';
+
 
 export const schema = yup.object().shape({
   name: yup

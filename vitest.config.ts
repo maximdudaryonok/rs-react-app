@@ -1,10 +1,11 @@
 import { defineConfig } from 'vitest/config';
+import { resolve } from 'path';
 
 export default defineConfig({
   test: {
     globals: true,
     environment: 'jsdom',
-    setupFiles: './src/setupTests.ts',
+    setupFiles: './setupTests.ts',
     coverage: {
       provider: 'v8',
       exclude: [
@@ -18,7 +19,11 @@ export default defineConfig({
         '**/*.test.tsx',
         '**/index.ts',
         '**/index.tsx',
+        'src/shared/types/**'
       ],
+      alias: {
+        shared: resolve(__dirname, 'src/shared'),
+      },
       thresholds: {
         global: {
           statements: 80,

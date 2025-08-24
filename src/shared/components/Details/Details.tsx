@@ -1,6 +1,7 @@
 import { FC } from 'react';
-import { ConvertedFormInputs } from 'shared/types/formTypes';
+
 import style from './Details.module.css';
+import { ConvertedFormInputs } from '../../types/formTypes.ts';
 
 interface DetailsProps extends Omit<ConvertedFormInputs, 'confirm' | 'terms'> {
   active?: boolean;
