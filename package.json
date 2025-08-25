@@ -1,0 +1,73 @@
+{
+  "name": "react-perfomance",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "lint": "eslint ../../AppData/Local/Temp/Rar$DRa21568.39409/React2025Q3-performance/rs-react-perfomance",
+    "format:fix": "prettier --write ../../AppData/Local/Temp/Rar$DRa21568.39409/React2025Q3-performance/rs-react-perfomance --ignore-unknown",
+    "lint:css": "stylelint --fix \"src/**/*.css\"",
+    "lint:scss": "stylelint --fix \"src/**/*.scss\"",
+    "preview": "vite preview",
+    "prepare": "cd ../../AppData/Local/Temp/Rar$DRa21568.39409/React2025Q3-performance && husky rs-react-perfomance/.husky",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "test:changed": "vitest --changed"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.8.2",
+    "install": "^0.13.0",
+    "npm": "^11.5.2",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.7.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@eslint/js": "^9.30.1",
+    "@stylistic/stylelint-plugin": "^3.1.3",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@types/react-router-dom": "^5.3.3",
+    "@vitejs/plugin-react": "^4.6.0",
+    "@vitest/coverage-istanbul": "^3.2.4",
+    "eslint": "^9.30.1",
+    "eslint-config-prettier": "^10.1.5",
+    "eslint-plugin-prettier": "^5.5.1",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-compiler": "^19.0.0-beta-af1b7da-20250417",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.20",
+    "globals": "^16.3.0",
+    "husky": "^9.1.7",
+    "jsdom": "^26.1.0",
+    "prettier": "3.6.2",
+    "sass": "^1.91.0",
+    "stylelint": "^16.21.1",
+    "stylelint-config-clean-order": "^7.0.0",
+    "stylelint-config-standard": "^38.0.0",
+    "stylelint-scss": "^6.12.1",
+    "typescript": "~5.8.3",
+    "typescript-eslint": "^8.35.1",
+    "vite": "^7.0.3",
+    "vitest": "^3.2.4"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.css": [
+      "npm run lint:css"
+    ],
+    "*.scss": [
+      "npm run lint:scss"
+    ]
+  }
+}
