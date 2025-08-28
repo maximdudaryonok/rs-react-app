@@ -1,0 +1,29 @@
+.table-wrapper {
+  margin: 2rem 0;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  font-size: 1.4rem;
+}
+
+thead {
+  background-color: var(--table-header-bg);
+}
+
+th,
+td {
+  padding: 0.8rem 1.2rem;
+  border: 1px solid var(--table-border);
+  text-align: left;
+}
+
+th {
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) {
+  background-color: var(--table-even-row-bg);
+}
