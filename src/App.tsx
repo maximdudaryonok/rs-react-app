@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 function App(): JSX.Element {
   return (
     <>
-      <h1>CO2 Emissions </h1>
+      <h1>CO2 Statistics </h1>
       <Provider store={store}>
         <Suspense fallback={<Loader />}>
           <MainContent />

@@ -1,5 +1,5 @@
 import type { JSX } from 'react';
-import loader from '../../assets/loader.svg';
+import loader from '../../assets/loader.png';
 import './loader.scss';
 
 function Loader(): JSX.Element {
